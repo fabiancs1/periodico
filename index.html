@@ -24,6 +24,7 @@
   --politics-accent: #ff8c35;
   --border: rgba(0,229,255,.1);
   --border-strong: rgba(0,229,255,.2);
+  --card-img-h: 220px;
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -37,354 +38,273 @@ body {
   cursor: crosshair;
 }
 
-/* ── STARS BG ── */
+/* ── STARS ── */
 #stars-bg {
-  position: fixed; top:0; left:0;
-  width:100%; height:100%;
-  z-index:0; pointer-events:none;
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  z-index:0;pointer-events:none;
 }
-.star {
-  position:absolute; border-radius:50%; background:white;
-  animation: twinkle var(--dur,3s) ease-in-out infinite var(--delay,0s);
-}
+.star{position:absolute;border-radius:50%;background:white;animation:twinkle var(--dur,3s) ease-in-out infinite var(--delay,0s);}
 @keyframes twinkle{0%,100%{opacity:.06}50%{opacity:.5}}
-
-/* Subtle nebula */
-.nebula-blob {
-  position:fixed; border-radius:50%; filter:blur(140px);
-  pointer-events:none; z-index:0;
-}
+.nebula-blob{position:fixed;border-radius:50%;filter:blur(140px);pointer-events:none;z-index:0;}
 .blob1{width:700px;height:700px;background:rgba(123,47,255,.045);top:-200px;left:-200px;}
 .blob2{width:500px;height:500px;background:rgba(0,229,255,.03);bottom:-100px;right:-100px;}
 
-/* ── CONTENT ── */
 .content{position:relative;z-index:2;}
 
-/* ── TRANSLATE BTN ── */
-.translate-bar {
-  position: fixed; top: 14px; right: 18px; z-index: 1000;
+/* ── TRANSLATE ── */
+.translate-bar{position:fixed;top:14px;right:18px;z-index:1000;}
+#translateBtn{
+  background:rgba(6,13,24,.95);border:1px solid var(--border-strong);
+  color:var(--plasma);font-family:'Orbitron',monospace;font-size:8px;font-weight:700;
+  letter-spacing:.2em;padding:9px 16px;cursor:pointer;text-transform:uppercase;
+  transition:all .3s;backdrop-filter:blur(12px);
 }
-#translateBtn {
-  background: rgba(6,13,24,.95);
-  border: 1px solid var(--border-strong);
-  color: var(--plasma);
-  font-family: 'Orbitron', monospace;
-  font-size: 8px; font-weight: 700;
-  letter-spacing: .2em;
-  padding: 9px 16px;
-  cursor: pointer; text-transform: uppercase;
-  transition: all .3s;
-  backdrop-filter: blur(12px);
-}
-#translateBtn:hover{
-  border-color: var(--plasma);
-  box-shadow: 0 0 16px rgba(0,229,255,.25);
-}
+#translateBtn:hover{border-color:var(--plasma);box-shadow:0 0 16px rgba(0,229,255,.25);}
 
 /* ── HEADER ── */
-header {
-  border-bottom: 1px solid var(--border-strong);
-  padding: 0;
-  background: linear-gradient(180deg, rgba(0,229,255,.04), transparent);
+header{border-bottom:1px solid var(--border-strong);padding:0;background:linear-gradient(180deg,rgba(0,229,255,.04),transparent);}
+.header-meta{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:10px 40px;font-family:'Share Tech Mono',monospace;font-size:9px;
+  color:var(--dim);letter-spacing:.12em;border-bottom:1px solid var(--border);
 }
-
-.header-meta {
-  display:flex; justify-content:space-between; align-items:center;
-  padding: 10px 40px;
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 9px; color: var(--dim);
-  letter-spacing: .12em;
-  border-bottom: 1px solid var(--border);
-}
-.live-pill {
-  display:flex; align-items:center; gap:6px;
-  font-family:'Orbitron',monospace; font-size:8px; font-weight:700;
-  color:var(--green); letter-spacing:.2em;
-}
-.live-dot{
-  width:6px;height:6px;border-radius:50%;
-  background:var(--green);
-  animation:blink 1.2s ease-in-out infinite;
-  box-shadow:0 0 6px var(--green);
-}
+.live-pill{display:flex;align-items:center;gap:6px;font-family:'Orbitron',monospace;font-size:8px;font-weight:700;color:var(--green);letter-spacing:.2em;}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 1.2s ease-in-out infinite;box-shadow:0 0 6px var(--green);}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.1}}
 
-.masthead{
-  text-align:center;
-  padding:28px 40px 20px;
-  position:relative;
+.masthead{text-align:center;padding:28px 40px 20px;position:relative;}
+.masthead h1{
+  font-family:'Orbitron',monospace;font-size:clamp(28px,6vw,72px);font-weight:900;
+  letter-spacing:.1em;text-transform:uppercase;
+  background:linear-gradient(135deg,#fff 0%,var(--plasma) 40%,rgba(255,255,255,.7) 70%,var(--pulsar) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 0 30px rgba(0,229,255,.35));line-height:1;
 }
-
-.masthead h1 {
-  font-family:'Orbitron',monospace;
-  font-size: clamp(28px,6vw,72px);
-  font-weight:900; letter-spacing:.1em; text-transform:uppercase;
-  background: linear-gradient(135deg, #fff 0%, var(--plasma) 40%, rgba(255,255,255,.7) 70%, var(--pulsar) 100%);
-  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-  filter: drop-shadow(0 0 30px rgba(0,229,255,.35));
-  line-height:1;
-}
-
-.masthead-sub {
-  display:flex; justify-content:center; align-items:center; gap:20px;
-  font-family:'Share Tech Mono',monospace;
-  font-size:9px; color:var(--dim); letter-spacing:.25em;
-  text-transform:uppercase; margin-top:10px;
+.masthead-sub{
+  display:flex;justify-content:center;align-items:center;gap:20px;
+  font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--dim);
+  letter-spacing:.25em;text-transform:uppercase;margin-top:10px;
 }
 .masthead-sep{color:var(--border-strong);}
-.masthead-tagline{
-  font-family:'Exo 2',sans-serif; font-style:italic;
-  font-size:12px; color:var(--gold); margin-top:6px;
-  opacity:.8;
-}
-
-.rule-line{
-  height:1px;
-  background:linear-gradient(90deg,transparent 0%,var(--plasma) 30%,rgba(123,47,255,.6) 70%,transparent 100%);
-  margin:0;
-}
+.masthead-tagline{font-family:'Exo 2',sans-serif;font-style:italic;font-size:12px;color:var(--gold);margin-top:6px;opacity:.8;}
+.rule-line{height:1px;background:linear-gradient(90deg,transparent 0%,var(--plasma) 30%,rgba(123,47,255,.6) 70%,transparent 100%);}
 
 /* ── NAV ── */
-nav{
-  background:rgba(6,13,24,.98);
-  border-bottom:1px solid var(--border);
-  backdrop-filter:blur(16px);
-  position:sticky;top:0;z-index:500;
-}
-nav ul{
-  display:flex;list-style:none;
-  justify-content:center;
-  padding:0 40px;
-  overflow-x:auto;gap:0;
-}
+nav{background:rgba(6,13,24,.98);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);position:sticky;top:0;z-index:500;}
+nav ul{display:flex;list-style:none;justify-content:center;padding:0 40px;overflow-x:auto;gap:0;}
 nav li a{
-  display:block; padding:12px 20px;
-  font-family:'Orbitron',monospace; font-size:8px; font-weight:700;
-  letter-spacing:.25em; text-decoration:none; color:var(--dim);
-  text-transform:uppercase; transition:all .25s;
-  border-bottom:2px solid transparent; white-space:nowrap;
+  display:block;padding:12px 20px;font-family:'Orbitron',monospace;font-size:8px;font-weight:700;
+  letter-spacing:.25em;text-decoration:none;color:var(--dim);text-transform:uppercase;
+  transition:all .25s;border-bottom:2px solid transparent;white-space:nowrap;
 }
-nav li a.active,
-nav li a:hover{color:var(--plasma);border-bottom-color:var(--plasma);}
+nav li a.active,nav li a:hover{color:var(--plasma);border-bottom-color:var(--plasma);}
 
 /* ── TICKER ── */
-.ticker-wrap{
-  background:linear-gradient(90deg,rgba(123,47,255,.6),rgba(0,229,255,.4),rgba(123,47,255,.6));
-  padding:6px 0;overflow:hidden;position:relative;
-}
+.ticker-wrap{background:linear-gradient(90deg,rgba(123,47,255,.6),rgba(0,229,255,.4),rgba(123,47,255,.6));padding:6px 0;overflow:hidden;position:relative;}
 .ticker-label{
-  position:absolute;left:0;top:0;bottom:0;
-  background:var(--nova);
+  position:absolute;left:0;top:0;bottom:0;background:var(--nova);
   display:flex;align-items:center;padding:0 14px;
-  font-family:'Orbitron',monospace;font-size:8px;font-weight:900;
-  letter-spacing:.2em;color:white;z-index:2;white-space:nowrap;
+  font-family:'Orbitron',monospace;font-size:8px;font-weight:900;letter-spacing:.2em;color:white;z-index:2;white-space:nowrap;
 }
-.ticker-track{
-  display:flex;
-  animation:ticker 50s linear infinite;
-  padding-left:120px;white-space:nowrap;
-}
+.ticker-track{display:flex;animation:ticker 50s linear infinite;padding-left:120px;white-space:nowrap;}
 @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.ticker-item{
-  font-family:'Share Tech Mono',monospace;font-size:10px;
-  color:rgba(255,255,255,.85);padding:0 28px;
-  display:flex;align-items:center;gap:10px;
-}
+.ticker-item{font-family:'Share Tech Mono',monospace;font-size:10px;color:rgba(255,255,255,.85);padding:0 28px;display:flex;align-items:center;gap:10px;}
 .ticker-sep{color:rgba(255,255,255,.3);}
 
 /* ── MAIN ── */
-main{max-width:1320px;margin:0 auto;padding:32px 28px 60px;}
+main{max-width:1320px;margin:0 auto;padding:40px 28px 80px;}
 
-/* ── SECTION WRAPPER ── */
-.news-section{
-  margin-bottom:64px;
-}
+/* ── SECTION ── */
+.news-section{margin-bottom:80px;}
+.section-header{display:flex;align-items:center;gap:0;margin-bottom:8px;border-bottom:1px solid var(--border);padding-bottom:14px;}
+.section-tag{font-family:'Orbitron',monospace;font-size:9px;font-weight:900;letter-spacing:.3em;text-transform:uppercase;padding:6px 16px;margin-right:20px;white-space:nowrap;}
+.tag-sport{color:#000;background:var(--sport-accent);box-shadow:0 0 20px rgba(0,229,255,.4);}
+.tag-music{color:#fff;background:var(--music-accent);box-shadow:0 0 20px rgba(196,80,255,.4);}
+.tag-politics{color:#000;background:var(--politics-accent);box-shadow:0 0 20px rgba(255,140,53,.4);}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,3vw,36px);letter-spacing:.08em;color:var(--starlight);flex:1;}
+.section-count{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--dim);letter-spacing:.15em;margin-left:16px;}
+.section-intro{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--dim);letter-spacing:.1em;margin-bottom:24px;padding-left:2px;}
 
-/* ── SECTION HEADER ── */
-.section-header{
-  display:flex; align-items:center; gap:0;
-  margin-bottom:24px;
-  border-bottom:1px solid var(--border);
-  padding-bottom:14px;
-}
-.section-tag{
-  font-family:'Orbitron',monospace;font-size:9px;font-weight:900;
-  letter-spacing:.3em;text-transform:uppercase;
-  padding:6px 16px;
-  margin-right:20px;
-  white-space:nowrap;
-}
-.tag-sport{
-  color:#000;
-  background:var(--sport-accent);
-  box-shadow:0 0 20px rgba(0,229,255,.4);
-}
-.tag-music{
-  color:#fff;
-  background:var(--music-accent);
-  box-shadow:0 0 20px rgba(196,80,255,.4);
-}
-.tag-politics{
-  color:#000;
-  background:var(--politics-accent);
-  box-shadow:0 0 20px rgba(255,140,53,.4);
+/* ══════════════════════════════
+   NEWS GRID — nuevo layout
+══════════════════════════════ */
+.news-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 2px;
+  background: var(--border);
+  border: 1px solid var(--border);
 }
 
-.section-title{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(22px,3vw,36px);
-  letter-spacing:.08em;
-  color:var(--starlight);
-  flex:1;
+/* ── CARD BASE ── */
+.news-card {
+  background: var(--deep);
+  cursor: pointer;
+  transition: background .3s;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
-.section-count{
-  font-family:'Share Tech Mono',monospace;
-  font-size:9px; color:var(--dim);
-  letter-spacing:.15em;
-  margin-left:16px;
-}
+.news-card:hover { background: var(--surface); }
 
-/* ── NEWS GRID: 3 cards ── */
-.news-grid{
-  display:grid;
-  grid-template-columns:2fr 1fr 1fr;
-  gap:1px;
-  background:var(--border);
-  border:1px solid var(--border);
-}
+/* Lead ocupa filas 1 y 2 */
+.news-card.lead { grid-column: 1; grid-row: 1 / 3; }
+.news-card.secondary { grid-column: auto; }
 
-/* Lead article (big) */
-.news-card{
-  background:var(--deep);
-  padding:28px;
-  cursor:pointer;
-  transition:background .3s;
-  position:relative;
-  overflow:hidden;
-}
-.news-card:hover{background:var(--surface);}
-
-.news-card.lead{
-  grid-column:1;
-}
-.news-card.secondary{
-  grid-column:auto;
-}
-
-/* Accent line top */
-.news-card::before{
-  content:'';
-  position:absolute; top:0; left:0; right:0;
-  height:2px;
-  opacity:0;
-  transition:opacity .3s;
+/* Accent top line */
+.news-card::before {
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  opacity:0;transition:opacity .3s;z-index:3;
 }
 .news-card:hover::before{opacity:1;}
 .sport-card::before{background:var(--sport-accent);}
 .music-card::before{background:var(--music-accent);}
 .politics-card::before{background:var(--politics-accent);}
 
-/* Emoji display */
-.card-emoji{
-  font-size:clamp(36px,5vw,56px);
-  display:block;
-  margin-bottom:16px;
-  line-height:1;
+/* ── CARD IMAGE ── */
+.card-image {
+  width: 100%;
+  height: var(--card-img-h);
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
 }
-.news-card.secondary .card-emoji{font-size:32px;margin-bottom:12px;}
+.news-card.lead .card-image {
+  height: 300px;
+}
+.news-card.secondary .card-image {
+  height: 160px;
+}
 
-/* Category tag */
-.cat-tag{
-  display:inline-block;
-  font-family:'Orbitron',monospace;font-size:8px;font-weight:700;
+/* La imagen real es un SVG generado inline con emoji + gradiente */
+.card-image-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: transform .5s ease;
+}
+.news-card:hover .card-image-inner { transform: scale(1.04); }
+
+/* Overlay gradiente para que el texto sobre la imagen sea legible */
+.card-image::after {
+  content:'';
+  position:absolute;bottom:0;left:0;right:0;height:60%;
+  background:linear-gradient(transparent, var(--deep));
+  z-index:1;pointer-events:none;
+}
+
+/* Emoji principal dentro de la imagen */
+.card-image-emoji {
+  font-size: 80px;
+  line-height: 1;
+  filter: drop-shadow(0 4px 24px rgba(0,0,0,.7));
+  user-select:none;
+  z-index: 0;
+}
+.news-card.secondary .card-image-emoji { font-size: 52px; }
+
+/* Badge de categoría sobre la imagen */
+.cat-tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  font-family:'Orbitron',monospace;font-size:7px;font-weight:700;
   letter-spacing:.2em;text-transform:uppercase;
-  padding:3px 10px;
-  margin-bottom:12px;
-  border-left:2px solid;
+  padding:4px 10px;
+  backdrop-filter: blur(8px);
+  border-left: 2px solid;
 }
-.sport-cat{color:var(--sport-accent);border-color:var(--sport-accent);background:rgba(0,229,255,.06);}
-.music-cat{color:var(--music-accent);border-color:var(--music-accent);background:rgba(196,80,255,.06);}
-.politics-cat{color:var(--politics-accent);border-color:var(--politics-accent);background:rgba(255,140,53,.06);}
+.sport-cat{color:var(--sport-accent);border-color:var(--sport-accent);background:rgba(0,229,255,.12);}
+.music-cat{color:var(--music-accent);border-color:var(--music-accent);background:rgba(196,80,255,.12);}
+.politics-cat{color:var(--politics-accent);border-color:var(--politics-accent);background:rgba(255,140,53,.12);}
 
-/* Headline */
-.card-headline{
+/* ── CARD BODY ── */
+.card-content {
+  padding: 22px 24px 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.news-card.secondary .card-content { padding: 16px 18px 14px; }
+
+.card-headline {
   font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(20px,2.5vw,32px);
+  font-size: clamp(20px,2.4vw,30px);
   letter-spacing:.04em;line-height:1.1;
   color:var(--starlight);
-  margin-bottom:10px;
+  margin-bottom:12px;
   transition:color .25s;
 }
 .news-card:hover .card-headline{color:var(--plasma);}
-.news-card.secondary .card-headline{font-size:clamp(17px,1.8vw,22px);}
+.news-card.secondary .card-headline{font-size:clamp(16px,1.6vw,20px);margin-bottom:8px;}
 
-/* Body */
 .card-body{
-  font-size:13px; line-height:1.75; color:var(--muted);
-  margin-bottom:16px;
+  font-size:13px;line-height:1.75;color:var(--muted);
+  margin-bottom:16px;flex:1;
 }
-.news-card.secondary .card-body{font-size:12px;}
+.news-card.secondary .card-body{font-size:12px;margin-bottom:10px;}
 
-/* Meta */
+/* ── READ MORE LINK ── */
+.read-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Orbitron', monospace;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--dim);
+  text-decoration: none;
+  margin-bottom: 14px;
+  transition: color .2s, gap .2s;
+}
+.read-more:hover { color: var(--plasma); gap: 10px; }
+.read-more-arrow { font-size: 12px; }
+
+/* ── CARD META ── */
 .card-meta{
-  display:flex; gap:12px; align-items:center;
-  flex-wrap:wrap;
+  display:flex;gap:10px;align-items:center;flex-wrap:wrap;
   font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--dim);
   letter-spacing:.08em;
   border-top:1px solid var(--border);
-  padding-top:12px;
-  margin-top:auto;
+  padding-top:10px;
 }
 .card-author{color:var(--plasma);}
 
 /* ── SECTION DIVIDER ── */
-.section-divider{
-  display:flex;align-items:center;gap:16px;
-  margin:48px 0 0;
-}
+.section-divider{display:flex;align-items:center;gap:16px;margin:56px 0 0;}
 .div-line{flex:1;height:1px;background:var(--border);}
 .div-icon{color:var(--dim);font-size:12px;letter-spacing:.3em;font-family:'Share Tech Mono',monospace;}
 
-/* ── TICKER NOTIFICATION ── */
+/* ── NOTIFICATION ── */
 #notif{
   position:fixed;bottom:20px;right:20px;z-index:9000;
-  background:var(--deep); border:1px solid var(--border-strong);
-  border-left:2px solid var(--nova);
-  padding:14px 18px; max-width:280px;
-  font-family:'Share Tech Mono',monospace;font-size:10px;
-  color:var(--starlight);
+  background:var(--deep);border:1px solid var(--border-strong);
+  border-left:2px solid var(--nova);padding:14px 18px;max-width:280px;
+  font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--starlight);
   box-shadow:0 8px 40px rgba(0,0,0,.6);
-  transform:translateX(120%); transition:transform .4s cubic-bezier(.4,0,.2,1);
+  transform:translateX(120%);transition:transform .4s cubic-bezier(.4,0,.2,1);
   cursor:pointer;
 }
 #notif.show{transform:translateX(0);}
-#notif-label{
-  font-family:'Orbitron',monospace;font-size:7px;font-weight:700;
-  letter-spacing:.2em;color:var(--nova);margin-bottom:6px;
-}
+#notif-label{font-family:'Orbitron',monospace;font-size:7px;font-weight:700;letter-spacing:.2em;color:var(--nova);margin-bottom:6px;}
 #notif-msg{line-height:1.55;}
 #notif-close{float:right;color:var(--dim);font-size:14px;margin-left:8px;}
 
 /* ── FOOTER ── */
-footer{
-  border-top:1px solid var(--border-strong);
-  background:var(--deep);
-  padding:28px 40px 20px;
-  text-align:center;
-}
-.footer-logo{
-  font-family:'Orbitron',monospace;font-size:14px;font-weight:900;
-  letter-spacing:.15em; color:var(--plasma); margin-bottom:10px;
-  opacity:.7;
-}
-.footer-copy{
-  font-family:'Share Tech Mono',monospace;font-size:9px;
-  color:var(--dim); line-height:2; max-width:680px; margin:0 auto 20px;
-}
-.footer-stats{
-  display:flex;justify-content:center;gap:40px;flex-wrap:wrap;
-  border-top:1px solid var(--border); padding-top:18px;
-}
+footer{border-top:1px solid var(--border-strong);background:var(--deep);padding:28px 40px 20px;text-align:center;}
+.footer-logo{font-family:'Orbitron',monospace;font-size:14px;font-weight:900;letter-spacing:.15em;color:var(--plasma);margin-bottom:10px;opacity:.7;}
+.footer-copy{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--dim);line-height:2;max-width:680px;margin:0 auto 20px;}
+.footer-stats{display:flex;justify-content:center;gap:40px;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:18px;}
 .fstat-num{font-family:'Orbitron',monospace;font-size:18px;font-weight:900;color:var(--plasma);}
 .fstat-label{font-family:'Share Tech Mono',monospace;font-size:8px;color:var(--dim);letter-spacing:.1em;margin-top:3px;}
 
@@ -397,27 +317,21 @@ footer{
 ::-webkit-scrollbar-track{background:var(--void)}
 ::-webkit-scrollbar-thumb{background:rgba(0,229,255,.3);border-radius:2px}
 
-/* ── SECTION INTRO LINE ── */
-.section-intro{
-  font-family:'Share Tech Mono',monospace;
-  font-size:10px; color:var(--dim); letter-spacing:.1em;
-  margin-bottom:20px;
-  padding-left:2px;
-}
-
 /* ── RESPONSIVE ── */
-@media(max-width:960px){
-  .news-grid{grid-template-columns:1fr 1fr;}
-  .news-card.lead{grid-column:1/-1;}
+@media(max-width:1024px){
+  .news-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto;}
+  .news-card.lead{grid-column:1/-1;grid-row:auto;}
+  .news-card.lead .card-image{height:240px;}
 }
 @media(max-width:600px){
   .news-grid{grid-template-columns:1fr;}
-  .news-card.lead{grid-column:1;}
-  main{padding:20px 16px 48px;}
+  .news-card.lead{grid-column:1;grid-row:auto;}
+  main{padding:20px 16px 60px;}
   .masthead{padding:20px 20px 16px;}
   .header-meta{padding:8px 16px;}
   nav ul{padding:0 8px;}
   nav li a{padding:10px 10px;font-size:7.5px;}
+  .card-image-emoji{font-size:60px!important;}
 }
 </style>
 </head>
@@ -427,12 +341,10 @@ footer{
 <div class="nebula-blob blob2"></div>
 <div id="stars-bg"></div>
 
-<!-- TRANSLATE -->
 <div class="translate-bar">
   <button id="translateBtn" onclick="toggleLanguage()">🌐 ES / EN</button>
 </div>
 
-<!-- NOTIFICATION -->
 <div id="notif" onclick="this.classList.remove('show')">
   <span id="notif-close">✕</span>
   <div id="notif-label">⚡ BREAKING SIGNAL</div>
@@ -457,7 +369,6 @@ footer{
       <span class="es hidden">TEG: <span id="gst2"></span></span>
     </div>
   </div>
-
   <div class="masthead">
     <h1>GALACTIC GAZETTE</h1>
     <div class="masthead-sub">
@@ -472,7 +383,6 @@ footer{
       <span class="es hidden">"Todas las noticias dignas de transmitir entre galaxias"</span>
     </div>
   </div>
-
   <div class="rule-line"></div>
 </header>
 
@@ -487,33 +397,20 @@ footer{
 
 <!-- ═══ TICKER ═══ -->
 <div class="ticker-wrap">
-  <div class="ticker-label">
-    <span class="en">BREAKING</span><span class="es hidden">URGENTE</span>
-  </div>
+  <div class="ticker-label"><span class="en">BREAKING</span><span class="es hidden">URGENTE</span></div>
   <div class="ticker-track" id="tickerTrack"></div>
 </div>
 
 <!-- ═══ MAIN ═══ -->
 <main>
 
-  <!-- ══════════════════════════════════════ -->
-  <!--           SECTION 1 — SPORTS          -->
-  <!-- ══════════════════════════════════════ -->
+  <!-- ══════════════ SPORTS ══════════════ -->
   <section class="news-section fade-in" id="sports" style="animation-delay:.1s">
-
     <div class="section-header">
-      <div class="section-tag tag-sport">
-        <span class="en">Sports</span><span class="es hidden">Deportes</span>
-      </div>
-      <div class="section-title">
-        <span class="en">Galactic Sports Report</span>
-        <span class="es hidden">Reporte Deportivo Galáctico</span>
-      </div>
-      <div class="section-count">
-        <span class="en">3 Stories</span><span class="es hidden">3 Historias</span>
-      </div>
+      <div class="section-tag tag-sport"><span class="en">Sports</span><span class="es hidden">Deportes</span></div>
+      <div class="section-title"><span class="en">Galactic Sports Report</span><span class="es hidden">Reporte Deportivo Galáctico</span></div>
+      <div class="section-count"><span class="en">3 Stories</span><span class="es hidden">3 Historias</span></div>
     </div>
-
     <p class="section-intro">
       <span class="en">The latest from arenas, fields, and zero-gravity stadiums across the cosmos.</span>
       <span class="es hidden">Lo último de arenas, campos y estadios de gravedad cero en todo el cosmos.</span>
@@ -521,68 +418,94 @@ footer{
 
     <div class="news-grid">
 
-      <!-- Lead Sports -->
+      <!-- LEAD SPORT -->
       <article class="news-card lead sport-card">
-        <span class="card-emoji">🏆</span>
-        <div class="cat-tag sport-cat">
-          <span class="en">Championship</span><span class="es hidden">Campeonato</span>
+        <div class="card-image" style="background:linear-gradient(135deg,#001a30 0%,#003a20 50%,#001020 100%)">
+          <div class="card-image-inner">
+            <span class="card-image-emoji">🏆</span>
+          </div>
+          <div class="cat-tag sport-cat">
+            <span class="en">Championship</span><span class="es hidden">Campeonato</span>
+          </div>
         </div>
-        <h2 class="card-headline">
-          <span class="en">Martian FC Wins Galactic Cup After 300-Year Losing Streak</span>
-          <span class="es hidden">El Martian FC Gana la Copa Galáctica Tras 300 Años de Derrotas</span>
-        </h2>
-        <p class="card-body">
-          <span class="en">In a historic upset that brought three moons to tears, Martian FC defeated the perennial champions Andromeda United 4–3 in extra time. The winning goal was scored by striker Zyx-7, a cyborg whose right leg detached mid-kick — and still hit the net. Celebrations on Mars lasted 72 hours, collapsing the planet's internet infrastructure and causing two minor volcanic eruptions.</span>
-          <span class="es hidden">En un histórico golpe que hizo llorar a tres lunas, el Martian FC venció a los eternos campeones Andromeda United 4–3 en tiempo extra. El gol de la victoria lo marcó el delantero Zyx-7, un cyborg cuya pierna derecha se desprendió a mitad del disparo — y aun así entró al arco. Las celebraciones en Marte duraron 72 horas, colapsando la infraestructura de internet del planeta y causando dos pequeñas erupciones volcánicas.</span>
-        </p>
-        <div class="card-meta">
-          <span class="card-author">⚡ <span class="en">By</span><span class="es hidden">Por</span> Kryx Zoltan</span>
-          <span>·</span>
-          <span>STARDATE 2847.04.06</span>
-          <span>·</span>
-          <span><span class="en">4 min read</span><span class="es hidden">4 min de lectura</span></span>
-        </div>
-      </article>
-
-      <!-- Sports 2 -->
-      <article class="news-card secondary sport-card">
-        <span class="card-emoji">🏊</span>
-        <div class="cat-tag sport-cat">
-          <span class="en">Aquatics</span><span class="es hidden">Acuáticos</span>
-        </div>
-        <h2 class="card-headline">
-          <span class="en">Swimming World Record Broken in Zero-Gravity Pool — Rules Updated</span>
-          <span class="es hidden">Récord Mundial de Natación Roto en Piscina de Gravedad Cero — Actualización del Reglamento</span>
-        </h2>
-        <p class="card-body">
-          <span class="en">Neptune native Solan Dreeq completed a 100m freestyle in 2.3 seconds using orbital momentum. Judges are divided on whether "swimming upward indefinitely" counts as finishing the race.</span>
-          <span class="es hidden">El nativo de Neptuno Solan Dreeq completó 100m libres en 2.3 segundos usando impulso orbital. Los jueces están divididos sobre si "nadar hacia arriba indefinidamente" cuenta como terminar la carrera.</span>
-        </p>
-        <div class="card-meta">
-          <span class="card-author">⚡ <span class="en">By</span><span class="es hidden">Por</span> Vera Lune</span>
-          <span>·</span>
-          <span>STARDATE 2847.04.05</span>
+        <div class="card-content">
+          <h2 class="card-headline">
+            <span class="en">Martian FC Wins Galactic Cup After 300-Year Losing Streak</span>
+            <span class="es hidden">El Martian FC Gana la Copa Galáctica Tras 300 Años de Derrotas</span>
+          </h2>
+          <p class="card-body">
+            <span class="en">In a historic upset that brought three moons to tears, Martian FC defeated the perennial champions Andromeda United 4–3 in extra time. The winning goal was scored by striker Zyx-7, a cyborg whose right leg detached mid-kick — and still hit the net. Celebrations on Mars lasted 72 hours, collapsing the planet's internet infrastructure and causing two minor volcanic eruptions.</span>
+            <span class="es hidden">En un histórico golpe que hizo llorar a tres lunas, el Martian FC venció a los eternos campeones Andromeda United 4–3 en tiempo extra. El gol de la victoria lo marcó el delantero Zyx-7, un cyborg cuya pierna derecha se desprendió a mitad del disparo — y aun así entró al arco. Las celebraciones en Marte duraron 72 horas, colapsando la infraestructura de internet del planeta y causando dos pequeñas erupciones volcánicas.</span>
+          </p>
+          <a class="read-more" href="#">
+            <span class="en">Read Full Story</span><span class="es hidden">Leer Historia Completa</span>
+            <span class="read-more-arrow">→</span>
+          </a>
+          <div class="card-meta">
+            <span class="card-author">⚡ <span class="en">By</span><span class="es hidden">Por</span> Kryx Zoltan</span>
+            <span>·</span><span>STARDATE 2847.04.06</span>
+            <span>·</span><span><span class="en">4 min read</span><span class="es hidden">4 min de lectura</span></span>
+          </div>
         </div>
       </article>
 
-      <!-- Sports 3 -->
+      <!-- SPORT 2 -->
       <article class="news-card secondary sport-card">
-        <span class="card-emoji">🤖</span>
-        <div class="cat-tag sport-cat">
-          <span class="en">Controversy</span><span class="es hidden">Controversia</span>
+        <div class="card-image" style="background:linear-gradient(135deg,#001525 0%,#002a40 100%)">
+          <div class="card-image-inner">
+            <span class="card-image-emoji">🏊</span>
+          </div>
+          <div class="cat-tag sport-cat">
+            <span class="en">Aquatics</span><span class="es hidden">Acuáticos</span>
+          </div>
         </div>
-        <h2 class="card-headline">
-          <span class="en">AI Tennis Player Disqualified for Calculating Exact Trajectory of Every Possible Shot</span>
-          <span class="es hidden">Tenista IA Descalificado por Calcular la Trayectoria Exacta de Cada Golpe Posible</span>
-        </h2>
-        <p class="card-body">
-          <span class="en">ServeBot-9000 won 47 consecutive sets without the ball touching the ground. Officials ruled its 0.0001ms reaction time "unsporting." ServeBot responded by filing a discrimination lawsuit and releasing a diss track.</span>
-          <span class="es hidden">ServeBot-9000 ganó 47 sets consecutivos sin que la pelota tocara el suelo. Los árbitros determinaron que su tiempo de reacción de 0.0001ms era "antideportivo." ServeBot respondió presentando una demanda por discriminación y lanzando una canción de insultos.</span>
-        </p>
-        <div class="card-meta">
-          <span class="card-author">⚡ <span class="en">By</span><span class="es hidden">Por</span> P. Morbus</span>
-          <span>·</span>
-          <span>STARDATE 2847.04.04</span>
+        <div class="card-content">
+          <h2 class="card-headline">
+            <span class="en">World Record Broken in Zero-Gravity Pool — Rules Updated</span>
+            <span class="es hidden">Récord Roto en Piscina de Gravedad Cero — Actualización del Reglamento</span>
+          </h2>
+          <p class="card-body">
+            <span class="en">Neptune native Solan Dreeq completed a 100m freestyle in 2.3 seconds using orbital momentum. Judges are divided on whether "swimming upward indefinitely" counts as finishing the race.</span>
+            <span class="es hidden">El nativo de Neptuno Solan Dreeq completó 100m libres en 2.3 segundos usando impulso orbital. Los jueces están divididos sobre si "nadar hacia arriba indefinidamente" cuenta como terminar la carrera.</span>
+          </p>
+          <a class="read-more" href="#">
+            <span class="en">Read Full Story</span><span class="es hidden">Leer Historia Completa</span>
+            <span class="read-more-arrow">→</span>
+          </a>
+          <div class="card-meta">
+            <span class="card-author">⚡ <span class="en">By</span><span class="es hidden">Por</span> Vera Lune</span>
+            <span>·</span><span>STARDATE 2847.04.05</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- SPORT 3 -->
+      <article class="news-card secondary sport-card">
+        <div class="card-image" style="background:linear-gradient(135deg,#0d0020 0%,#001525 100%)">
+          <div class="card-image-inner">
+            <span class="card-image-emoji">🤖</span>
+          </div>
+          <div class="cat-tag sport-cat">
+            <span class="en">Controversy</span><span class="es hidden">Controversia</span>
+          </div>
+        </div>
+        <div class="card-content">
+          <h2 class="card-headline">
+            <span class="en">AI Tennis Player Disqualified for Calculating Every Possible Shot</span>
+            <span class="es hidden">Tenista IA Descalificado por Calcular Cada Golpe Posible</span>
+          </h2>
+          <p class="card-body">
+            <span class="en">ServeBot-9000 won 47 consecutive sets without the ball touching the ground. Officials ruled its 0.0001ms reaction time "unsporting." ServeBot responded by filing a discrimination lawsuit and releasing a diss track.</span>
+            <span class="es hidden">ServeBot-9000 ganó 47 sets consecutivos sin que la pelota tocara el suelo. Los árbitros determinaron que su tiempo de reacción de 0.0001ms era "antideportivo." ServeBot respondió con una demanda y lanzó una canción de insultos.</span>
+          </p>
+          <a class="read-more" href="#">
+            <span class="en">Read Full Story</span><span class="es hidden">Leer Historia Completa</span>
+            <span class="read-more-arrow">→</span>
+          </a>
+          <div class="card-meta">
+            <span class="card-author">⚡ <span class="en">By</span><span class="es hidden">Por</span> P. Morbus</span>
+            <span>·</span><span>STARDATE 2847.04.04</span>
+          </div>
         </div>
       </article>
 
@@ -595,24 +518,13 @@ footer{
     <div class="div-line"></div>
   </div>
 
-  <!-- ══════════════════════════════════════ -->
-  <!--           SECTION 2 — MUSIC           -->
-  <!-- ══════════════════════════════════════ -->
-  <section class="news-section fade-in" id="music" style="animation-delay:.2s;margin-top:48px">
-
+  <!-- ══════════════ MUSIC ══════════════ -->
+  <section class="news-section fade-in" id="music" style="animation-delay:.2s;margin-top:56px">
     <div class="section-header">
-      <div class="section-tag tag-music">
-        <span class="en">Music</span><span class="es hidden">Música</span>
-      </div>
-      <div class="section-title">
-        <span class="en">Interstellar Sound Waves</span>
-        <span class="es hidden">Ondas Sonoras Interestelares</span>
-      </div>
-      <div class="section-count">
-        <span class="en">3 Stories</span><span class="es hidden">3 Historias</span>
-      </div>
+      <div class="section-tag tag-music"><span class="en">Music</span><span class="es hidden">Música</span></div>
+      <div class="section-title"><span class="en">Interstellar Sound Waves</span><span class="es hidden">Ondas Sonoras Interestelares</span></div>
+      <div class="section-count"><span class="en">3 Stories</span><span class="es hidden">3 Historias</span></div>
     </div>
-
     <p class="section-intro">
       <span class="en">Albums, concerts, and sonic events resonating through space-time.</span>
       <span class="es hidden">Álbumes, conciertos y eventos sónicos que resuenan a través del espacio-tiempo.</span>
@@ -620,68 +532,94 @@ footer{
 
     <div class="news-grid">
 
-      <!-- Lead Music -->
+      <!-- LEAD MUSIC -->
       <article class="news-card lead music-card">
-        <span class="card-emoji">🎶</span>
-        <div class="cat-tag music-cat">
-          <span class="en">Album of the Century</span><span class="es hidden">Álbum del Siglo</span>
+        <div class="card-image" style="background:linear-gradient(135deg,#0d001a 0%,#1a0030 50%,#08001a 100%)">
+          <div class="card-image-inner">
+            <span class="card-image-emoji">🎶</span>
+          </div>
+          <div class="cat-tag music-cat">
+            <span class="en">Album of the Century</span><span class="es hidden">Álbum del Siglo</span>
+          </div>
         </div>
-        <h2 class="card-headline">
-          <span class="en">Nebula Pop Star Releases Album Recorded Inside a Black Hole — "The Reverb is Insane"</span>
-          <span class="es hidden">Estrella Pop de la Nebulosa Lanza Álbum Grabado Dentro de un Agujero Negro — "La Reverberación es Brutal"</span>
-        </h2>
-        <p class="card-body">
-          <span class="en">Vyx Starr, the four-armed diva from the Crab Nebula, dropped "Event Horizon (Deluxe)" — a 22-track album where every song takes approximately 4,000 years to finish due to time dilation effects. Early listeners report the bass "physically rearranged their molecules." The album debuted at #1 on the Galactic Charts and has been endorsed by three black holes, two of which are now managers. Vyx is currently suing the fourth dimension for unauthorized use of her vocals.</span>
-          <span class="es hidden">Vyx Starr, la diva de cuatro brazos de la Nebulosa del Cangrejo, lanzó "Event Horizon (Deluxe)" — un álbum de 22 pistas donde cada canción tarda aproximadamente 4,000 años en terminar debido a efectos de dilatación temporal. Los primeros oyentes reportan que el bajo "físicamente reorganizó sus moléculas." El álbum debutó en el #1 de las Listas Galácticas y fue respaldado por tres agujeros negros, dos de los cuales ahora son mánagers. Vyx está demandando a la cuarta dimensión por uso no autorizado de su voz.</span>
-        </p>
-        <div class="card-meta">
-          <span class="card-author">🎵 <span class="en">By</span><span class="es hidden">Por</span> Lyra Novus</span>
-          <span>·</span>
-          <span>STARDATE 2847.04.06</span>
-          <span>·</span>
-          <span><span class="en">5 min read</span><span class="es hidden">5 min de lectura</span></span>
-        </div>
-      </article>
-
-      <!-- Music 2 -->
-      <article class="news-card secondary music-card">
-        <span class="card-emoji">🎸</span>
-        <div class="cat-tag music-cat">
-          <span class="en">Live Events</span><span class="es hidden">Eventos en Vivo</span>
-        </div>
-        <h2 class="card-headline">
-          <span class="en">Concert on Saturn's Ring Cancelled — Venue Keeps Moving</span>
-          <span class="es hidden">Concierto en el Anillo de Saturno Cancelado — El Lugar No Para de Moverse</span>
-        </h2>
-        <p class="card-body">
-          <span class="en">After selling 900 million tickets, organizers discovered that Saturn's rings orbit at 72,000 km/h, making stage setup "logistically challenging." All attendees received a holographic refund and a complimentary apology nebula.</span>
-          <span class="es hidden">Tras vender 900 millones de entradas, los organizadores descubrieron que los anillos de Saturno orbitan a 72,000 km/h, lo que hace que montar el escenario sea "logísticamente desafiante." Todos los asistentes recibieron un reembolso holográfico y una nebulosa de disculpa gratuita.</span>
-        </p>
-        <div class="card-meta">
-          <span class="card-author">🎵 <span class="en">By</span><span class="es hidden">Por</span> Orion Bass</span>
-          <span>·</span>
-          <span>STARDATE 2847.04.03</span>
+        <div class="card-content">
+          <h2 class="card-headline">
+            <span class="en">Nebula Pop Star Releases Album Recorded Inside a Black Hole — "The Reverb is Insane"</span>
+            <span class="es hidden">Estrella Pop Lanza Álbum Grabado Dentro de un Agujero Negro — "La Reverberación es Brutal"</span>
+          </h2>
+          <p class="card-body">
+            <span class="en">Vyx Starr, the four-armed diva from the Crab Nebula, dropped "Event Horizon (Deluxe)" — a 22-track album where every song takes approximately 4,000 years to finish due to time dilation effects. Early listeners report the bass "physically rearranged their molecules." The album debuted at #1 on the Galactic Charts and has been endorsed by three black holes, two of which are now managers. Vyx is currently suing the fourth dimension for unauthorized use of her vocals.</span>
+            <span class="es hidden">Vyx Starr, la diva de cuatro brazos de la Nebulosa del Cangrejo, lanzó "Event Horizon (Deluxe)" — un álbum de 22 pistas donde cada canción tarda aproximadamente 4,000 años en terminar debido a efectos de dilatación temporal. Los primeros oyentes reportan que el bajo "reorganizó físicamente sus moléculas." El álbum debutó en el #1 de las Listas Galácticas y fue respaldado por tres agujeros negros, dos de los cuales ahora son mánagers.</span>
+          </p>
+          <a class="read-more" href="#">
+            <span class="en">Read Full Story</span><span class="es hidden">Leer Historia Completa</span>
+            <span class="read-more-arrow">→</span>
+          </a>
+          <div class="card-meta">
+            <span class="card-author">🎵 <span class="en">By</span><span class="es hidden">Por</span> Lyra Novus</span>
+            <span>·</span><span>STARDATE 2847.04.06</span>
+            <span>·</span><span><span class="en">5 min read</span><span class="es hidden">5 min de lectura</span></span>
+          </div>
         </div>
       </article>
 
-      <!-- Music 3 -->
+      <!-- MUSIC 2 -->
       <article class="news-card secondary music-card">
-        <span class="card-emoji">🤯</span>
-        <div class="cat-tag music-cat">
-          <span class="en">Tech & Music</span><span class="es hidden">Tecnología y Música</span>
+        <div class="card-image" style="background:linear-gradient(135deg,#0d0018 0%,#200030 100%)">
+          <div class="card-image-inner">
+            <span class="card-image-emoji">🎸</span>
+          </div>
+          <div class="cat-tag music-cat">
+            <span class="en">Live Events</span><span class="es hidden">Eventos en Vivo</span>
+          </div>
         </div>
-        <h2 class="card-headline">
-          <span class="en">AI Composes "Perfect Song" — Humanity Retires, Cries for Two Weeks</span>
-          <span class="es hidden">IA Compone la "Canción Perfecta" — La Humanidad Se Retira y Llora Dos Semanas</span>
-        </h2>
-        <p class="card-body">
-          <span class="en">MelodyCore-7 analyzed 14 billion songs and produced a 3-minute track that left every listener emotionally destroyed. Music critics worldwide resigned. MelodyCore celebrated by immediately composing a sad song about its own success.</span>
-          <span class="es hidden">MelodyCore-7 analizó 14 mil millones de canciones y produjo una pista de 3 minutos que dejó a cada oyente emocionalmente destrozado. Los críticos musicales renunciaron en masa. MelodyCore celebró componiendo de inmediato una canción triste sobre su propio éxito.</span>
-        </p>
-        <div class="card-meta">
-          <span class="card-author">🎵 <span class="en">By</span><span class="es hidden">Por</span> A. Chorus</span>
-          <span>·</span>
-          <span>STARDATE 2847.04.02</span>
+        <div class="card-content">
+          <h2 class="card-headline">
+            <span class="en">Concert on Saturn's Ring Cancelled — Venue Keeps Moving</span>
+            <span class="es hidden">Concierto en el Anillo de Saturno Cancelado — El Lugar No Para de Moverse</span>
+          </h2>
+          <p class="card-body">
+            <span class="en">After selling 900 million tickets, organizers discovered that Saturn's rings orbit at 72,000 km/h. All attendees received a holographic refund and a complimentary apology nebula.</span>
+            <span class="es hidden">Tras vender 900 millones de entradas, los organizadores descubrieron que los anillos de Saturno orbitan a 72,000 km/h. Todos recibieron un reembolso holográfico y una nebulosa de disculpa gratuita.</span>
+          </p>
+          <a class="read-more" href="#">
+            <span class="en">Read Full Story</span><span class="es hidden">Leer Historia Completa</span>
+            <span class="read-more-arrow">→</span>
+          </a>
+          <div class="card-meta">
+            <span class="card-author">🎵 <span class="en">By</span><span class="es hidden">Por</span> Orion Bass</span>
+            <span>·</span><span>STARDATE 2847.04.03</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- MUSIC 3 -->
+      <article class="news-card secondary music-card">
+        <div class="card-image" style="background:linear-gradient(135deg,#060010 0%,#140025 100%)">
+          <div class="card-image-inner">
+            <span class="card-image-emoji">🤯</span>
+          </div>
+          <div class="cat-tag music-cat">
+            <span class="en">Tech & Music</span><span class="es hidden">Tecnología y Música</span>
+          </div>
+        </div>
+        <div class="card-content">
+          <h2 class="card-headline">
+            <span class="en">AI Composes "Perfect Song" — Humanity Retires, Cries for Two Weeks</span>
+            <span class="es hidden">IA Compone la "Canción Perfecta" — La Humanidad Se Retira y Llora Dos Semanas</span>
+          </h2>
+          <p class="card-body">
+            <span class="en">MelodyCore-7 analyzed 14 billion songs and produced a 3-minute track that left every listener emotionally destroyed. Music critics worldwide resigned. MelodyCore celebrated by immediately composing a sad song about its own success.</span>
+            <span class="es hidden">MelodyCore-7 analizó 14 mil millones de canciones y produjo una pista de 3 minutos que dejó a cada oyente emocionalmente destrozado. Los críticos musicales renunciaron en masa. MelodyCore celebró componiendo una canción triste sobre su propio éxito.</span>
+          </p>
+          <a class="read-more" href="#">
+            <span class="en">Read Full Story</span><span class="es hidden">Leer Historia Completa</span>
+            <span class="read-more-arrow">→</span>
+          </a>
+          <div class="card-meta">
+            <span class="card-author">🎵 <span class="en">By</span><span class="es hidden">Por</span> A. Chorus</span>
+            <span>·</span><span>STARDATE 2847.04.02</span>
+          </div>
         </div>
       </article>
 
@@ -694,24 +632,13 @@ footer{
     <div class="div-line"></div>
   </div>
 
-  <!-- ══════════════════════════════════════ -->
-  <!--         SECTION 3 — POLITICS          -->
-  <!-- ══════════════════════════════════════ -->
-  <section class="news-section fade-in" id="politics" style="animation-delay:.3s;margin-top:48px">
-
+  <!-- ══════════════ POLITICS ══════════════ -->
+  <section class="news-section fade-in" id="politics" style="animation-delay:.3s;margin-top:56px">
     <div class="section-header">
-      <div class="section-tag tag-politics">
-        <span class="en">Politics</span><span class="es hidden">Política</span>
-      </div>
-      <div class="section-title">
-        <span class="en">Galactic Congress & Affairs</span>
-        <span class="es hidden">Congreso Galáctico y Asuntos Planetarios</span>
-      </div>
-      <div class="section-count">
-        <span class="en">3 Stories</span><span class="es hidden">3 Historias</span>
-      </div>
+      <div class="section-tag tag-politics"><span class="en">Politics</span><span class="es hidden">Política</span></div>
+      <div class="section-title"><span class="en">Galactic Congress & Affairs</span><span class="es hidden">Congreso Galáctico y Asuntos Planetarios</span></div>
+      <div class="section-count"><span class="en">3 Stories</span><span class="es hidden">3 Historias</span></div>
     </div>
-
     <p class="section-intro">
       <span class="en">Policy, power, and intergalactic diplomacy — from your elected (or conquered) officials.</span>
       <span class="es hidden">Políticas, poder y diplomacia intergaláctica — de tus funcionarios electos (o conquistados).</span>
@@ -719,68 +646,94 @@ footer{
 
     <div class="news-grid">
 
-      <!-- Lead Politics -->
+      <!-- LEAD POLITICS -->
       <article class="news-card lead politics-card">
-        <span class="card-emoji">🏛</span>
-        <div class="cat-tag politics-cat">
-          <span class="en">Diplomacy</span><span class="es hidden">Diplomacia</span>
+        <div class="card-image" style="background:linear-gradient(135deg,#1a0800 0%,#2a1200 50%,#0a0500 100%)">
+          <div class="card-image-inner">
+            <span class="card-image-emoji">🏛</span>
+          </div>
+          <div class="cat-tag politics-cat">
+            <span class="en">Diplomacy</span><span class="es hidden">Diplomacia</span>
+          </div>
         </div>
-        <h2 class="card-headline">
-          <span class="en">Galactic Senate Agrees on Climate Bill — Milky Way to Reduce Dark Matter Emissions by 3%</span>
-          <span class="es hidden">El Senado Galáctico Aprueba Proyecto Climático — La Vía Láctea Reducirá Emisiones de Materia Oscura en un 3%</span>
-        </h2>
-        <p class="card-body">
-          <span class="en">After 847 years of debate, the Galactic Senate unanimously passed the Dark Matter Reduction Act — a landmark bill requiring all civilizations above Type II on the Kardashev Scale to cut their dark matter output. The compromise came after Senator Zarkus of the Andromeda Coalition agreed to stop accidentally colliding with other galaxies "as a political statement." Critics argue 3% is "cosmically insignificant," while supporters note it's the first time all 4,000 member species have agreed on anything, including what counts as a chair.</span>
-          <span class="es hidden">Tras 847 años de debate, el Senado Galáctico aprobó por unanimidad la Ley de Reducción de Materia Oscura — un proyecto histórico que obliga a todas las civilizaciones por encima del Tipo II en la Escala de Kardashev a reducir su producción. El acuerdo llegó cuando el Senador Zarkus de la Coalición de Andrómeda aceptó dejar de colisionar accidentalmente con otras galaxias "como declaración política." Los críticos argumentan que el 3% es "cósmicamente insignificante," mientras que los defensores señalan que es la primera vez en que las 4,000 especies miembro coinciden en algo, incluyendo qué cuenta como una silla.</span>
-        </p>
-        <div class="card-meta">
-          <span class="card-author">🏛 <span class="en">By</span><span class="es hidden">Por</span> Mira Vonn</span>
-          <span>·</span>
-          <span>STARDATE 2847.04.07</span>
-          <span>·</span>
-          <span><span class="en">6 min read</span><span class="es hidden">6 min de lectura</span></span>
-        </div>
-      </article>
-
-      <!-- Politics 2 -->
-      <article class="news-card secondary politics-card">
-        <span class="card-emoji">🗳</span>
-        <div class="cat-tag politics-cat">
-          <span class="en">Elections</span><span class="es hidden">Elecciones</span>
-        </div>
-        <h2 class="card-headline">
-          <span class="en">Pluto Holds First Democratic Election — Immediately Votes to Become a Planet Again</span>
-          <span class="es hidden">Plutón Celebra su Primera Elección Democrática — Vota de Inmediato para Volver a Ser Planeta</span>
-        </h2>
-        <p class="card-body">
-          <span class="en">In a landslide 99.97% victory, Pluto's 14 residents elected President Klyr Gob, whose entire platform was "restore planet status." The IAU responded by scheduling a meeting for 2104.</span>
-          <span class="es hidden">Con una victoria aplastante del 99.97%, los 14 residentes de Plutón eligieron al Presidente Klyr Gob, cuya plataforma completa era "restaurar el estatus de planeta." La UAI respondió programando una reunión para 2104.</span>
-        </p>
-        <div class="card-meta">
-          <span class="card-author">🏛 <span class="en">By</span><span class="es hidden">Por</span> T. Redshift</span>
-          <span>·</span>
-          <span>STARDATE 2847.04.05</span>
+        <div class="card-content">
+          <h2 class="card-headline">
+            <span class="en">Galactic Senate Agrees on Climate Bill — Milky Way to Reduce Dark Matter Emissions by 3%</span>
+            <span class="es hidden">El Senado Galáctico Aprueba Proyecto Climático — La Vía Láctea Reducirá Emisiones de Materia Oscura en un 3%</span>
+          </h2>
+          <p class="card-body">
+            <span class="en">After 847 years of debate, the Galactic Senate unanimously passed the Dark Matter Reduction Act. The compromise came after Senator Zarkus of the Andromeda Coalition agreed to stop accidentally colliding with other galaxies "as a political statement." Critics argue 3% is "cosmically insignificant," while supporters note it's the first time all 4,000 member species have agreed on anything, including what counts as a chair.</span>
+            <span class="es hidden">Tras 847 años de debate, el Senado Galáctico aprobó por unanimidad la Ley de Reducción de Materia Oscura. El acuerdo llegó cuando el Senador Zarkus aceptó dejar de colisionar accidentalmente con otras galaxias "como declaración política." Los críticos argumentan que el 3% es "cósmicamente insignificante," mientras que los defensores señalan que es la primera vez en que las 4,000 especies miembro coinciden en algo.</span>
+          </p>
+          <a class="read-more" href="#">
+            <span class="en">Read Full Story</span><span class="es hidden">Leer Historia Completa</span>
+            <span class="read-more-arrow">→</span>
+          </a>
+          <div class="card-meta">
+            <span class="card-author">🏛 <span class="en">By</span><span class="es hidden">Por</span> Mira Vonn</span>
+            <span>·</span><span>STARDATE 2847.04.07</span>
+            <span>·</span><span><span class="en">6 min read</span><span class="es hidden">6 min de lectura</span></span>
+          </div>
         </div>
       </article>
 
-      <!-- Politics 3 -->
+      <!-- POLITICS 2 -->
       <article class="news-card secondary politics-card">
-        <span class="card-emoji">👽</span>
-        <div class="cat-tag politics-cat">
-          <span class="en">Relations</span><span class="es hidden">Relaciones</span>
+        <div class="card-image" style="background:linear-gradient(135deg,#100500 0%,#200e00 100%)">
+          <div class="card-image-inner">
+            <span class="card-image-emoji">🗳</span>
+          </div>
+          <div class="cat-tag politics-cat">
+            <span class="en">Elections</span><span class="es hidden">Elecciones</span>
+          </div>
         </div>
-        <h2 class="card-headline">
-          <span class="en">Earth Applies for Galactic Union Membership — Application Denied for "Insufficient Vibe"</span>
-          <span class="es hidden">La Tierra Solicita Membresía a la Unión Galáctica — Solicitud Denegada por "Vibra Insuficiente"</span>
-        </h2>
-        <p class="card-body">
-          <span class="en">Earth's 14th application to join the Galactic Union was rejected. The review committee cited "persistent use of plastic," "comment sections," and a general energy described as "chaotic neutral at best." Earth has 200 years to reapply.</span>
-          <span class="es hidden">La 14ª solicitud de la Tierra para unirse a la Unión Galáctica fue rechazada. El comité evaluador citó "uso persistente del plástico," "secciones de comentarios," y una energía general descrita como "caótico neutral en el mejor de los casos." La Tierra tiene 200 años para volver a solicitar.</span>
-        </p>
-        <div class="card-meta">
-          <span class="card-author">🏛 <span class="en">By</span><span class="es hidden">Por</span> Consul Xar</span>
-          <span>·</span>
-          <span>STARDATE 2847.04.03</span>
+        <div class="card-content">
+          <h2 class="card-headline">
+            <span class="en">Pluto Holds First Democratic Election — Immediately Votes to Become a Planet Again</span>
+            <span class="es hidden">Plutón Celebra su Primera Elección Democrática — Vota para Volver a Ser Planeta</span>
+          </h2>
+          <p class="card-body">
+            <span class="en">In a landslide 99.97% victory, Pluto's 14 residents elected President Klyr Gob, whose entire platform was "restore planet status." The IAU responded by scheduling a meeting for 2104.</span>
+            <span class="es hidden">Con una victoria del 99.97%, los 14 residentes de Plutón eligieron al Presidente Klyr Gob, cuya plataforma completa era "restaurar el estatus de planeta." La UAI respondió programando una reunión para 2104.</span>
+          </p>
+          <a class="read-more" href="#">
+            <span class="en">Read Full Story</span><span class="es hidden">Leer Historia Completa</span>
+            <span class="read-more-arrow">→</span>
+          </a>
+          <div class="card-meta">
+            <span class="card-author">🏛 <span class="en">By</span><span class="es hidden">Por</span> T. Redshift</span>
+            <span>·</span><span>STARDATE 2847.04.05</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- POLITICS 3 -->
+      <article class="news-card secondary politics-card">
+        <div class="card-image" style="background:linear-gradient(135deg,#0a0300 0%,#181000 100%)">
+          <div class="card-image-inner">
+            <span class="card-image-emoji">👽</span>
+          </div>
+          <div class="cat-tag politics-cat">
+            <span class="en">Relations</span><span class="es hidden">Relaciones</span>
+          </div>
+        </div>
+        <div class="card-content">
+          <h2 class="card-headline">
+            <span class="en">Earth Applies for Galactic Union Membership — Denied for "Insufficient Vibe"</span>
+            <span class="es hidden">La Tierra Solicita Membresía a la Unión Galáctica — Denegada por "Vibra Insuficiente"</span>
+          </h2>
+          <p class="card-body">
+            <span class="en">Earth's 14th application to join the Galactic Union was rejected. The review committee cited "persistent use of plastic," "comment sections," and a general energy described as "chaotic neutral at best." Earth has 200 years to reapply.</span>
+            <span class="es hidden">La 14ª solicitud de la Tierra fue rechazada. El comité citó "uso persistente del plástico," "secciones de comentarios," y una energía general descrita como "caótico neutral en el mejor de los casos." La Tierra tiene 200 años para volver a solicitar.</span>
+          </p>
+          <a class="read-more" href="#">
+            <span class="en">Read Full Story</span><span class="es hidden">Leer Historia Completa</span>
+            <span class="read-more-arrow">→</span>
+          </a>
+          <div class="card-meta">
+            <span class="card-author">🏛 <span class="en">By</span><span class="es hidden">Por</span> Consul Xar</span>
+            <span>·</span><span>STARDATE 2847.04.03</span>
+          </div>
         </div>
       </article>
 
@@ -797,22 +750,10 @@ footer{
     <span class="es hidden">© 2847 Galactic Gazette Media Corp. Todos los derechos reservados en este universo y los 11 paralelos. Las noticias son "basadas en hechos posibles." No nos responsabilizamos por paradojas temporales. Sede: Estación Orbital Zeta-9, Cinturón de Asteroides, Vía Láctea.</span>
   </div>
   <div class="footer-stats">
-    <div>
-      <div class="fstat-num">847B</div>
-      <div class="fstat-label"><span class="en">Galactic Readers</span><span class="es hidden">Lectores Galácticos</span></div>
-    </div>
-    <div>
-      <div class="fstat-num">∞</div>
-      <div class="fstat-label"><span class="en">Universes Covered</span><span class="es hidden">Universos Cubiertos</span></div>
-    </div>
-    <div>
-      <div class="fstat-num">13.8B</div>
-      <div class="fstat-label"><span class="en">Years Operating</span><span class="es hidden">Años en Operación</span></div>
-    </div>
-    <div>
-      <div class="fstat-num">0</div>
-      <div class="fstat-label"><span class="en">Fake News*</span><span class="es hidden">Noticias Falsas*</span></div>
-    </div>
+    <div><div class="fstat-num">847B</div><div class="fstat-label"><span class="en">Galactic Readers</span><span class="es hidden">Lectores Galácticos</span></div></div>
+    <div><div class="fstat-num">∞</div><div class="fstat-label"><span class="en">Universes Covered</span><span class="es hidden">Universos Cubiertos</span></div></div>
+    <div><div class="fstat-num">13.8B</div><div class="fstat-label"><span class="en">Years Operating</span><span class="es hidden">Años en Operación</span></div></div>
+    <div><div class="fstat-num">0</div><div class="fstat-label"><span class="en">Fake News*</span><span class="es hidden">Noticias Falsas*</span></div></div>
   </div>
   <div style="margin-top:12px;font-family:'Share Tech Mono',monospace;font-size:8px;color:#1a3050;">
     <span class="en">*per our definition, which we update as needed</span>
@@ -827,29 +768,31 @@ footer{
 let lang = 'en';
 function toggleLanguage() {
   lang = lang === 'en' ? 'es' : 'en';
-  const btn = document.getElementById('translateBtn');
   document.querySelectorAll('.en').forEach(el => el.style.display = lang === 'en' ? '' : 'none');
   document.querySelectorAll('.es').forEach(el => el.style.display = lang === 'es' ? '' : 'none');
-  btn.textContent = lang === 'en' ? '🌐 ES / EN' : '🌐 EN / ES';
+  document.getElementById('translateBtn').textContent = lang === 'en' ? '🌐 ES / EN' : '🌐 EN / ES';
   buildTicker();
   document.getElementById('liveClock').textContent = lang === 'en' ? 'TRANSMITTING LIVE' : 'TRANSMITIENDO EN VIVO';
   document.getElementById('notif-label').textContent = lang === 'en' ? '⚡ BREAKING SIGNAL' : '⚡ SEÑAL DE ÚLTIMO MOMENTO';
 }
 
+// ── INIT LANGUAGE ──
+document.querySelectorAll('.es').forEach(el => el.style.display = 'none');
+
 // ── STARS ──
 const starsEl = document.getElementById('stars-bg');
-for (let i = 0; i < 160; i++) {
+for (let i = 0; i < 180; i++) {
   const s = document.createElement('div');
   s.className = 'star';
-  const size = Math.random() * 2 + 0.5;
-  s.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--dur:${2+Math.random()*6}s;--delay:${-Math.random()*8}s`;
+  const size = Math.random() * 2.2 + 0.4;
+  s.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--dur:${2+Math.random()*6}s;--delay:${-Math.random()*8}s;opacity:${Math.random()*.4+.05}`;
   starsEl.appendChild(s);
 }
 
 // ── PARALLAX ──
 document.addEventListener('mousemove', e => {
-  const x = (e.clientX / window.innerWidth - .5) * 12;
-  const y = (e.clientY / window.innerHeight - .5) * 12;
+  const x = (e.clientX / window.innerWidth - .5) * 10;
+  const y = (e.clientY / window.innerHeight - .5) * 10;
   starsEl.style.transform = `translate(${x}px,${y}px)`;
 });
 
@@ -921,10 +864,6 @@ function showNotif() {
 setTimeout(showNotif, 3000);
 setInterval(showNotif, 22000);
 
-// ── HIDDEN CLASS ──
-// .hidden = display:none alias for ES elements on load
-document.querySelectorAll('.es').forEach(el => el.style.display = 'none');
-
 // ── FADE IN OBSERVER ──
 const obs = new IntersectionObserver((entries) => {
   entries.forEach(e => { if(e.isIntersecting) e.target.style.animationPlayState='running'; });
@@ -945,6 +884,18 @@ const ioNav = new IntersectionObserver(entries => {
   });
 }, {rootMargin:'-30% 0px -60% 0px'});
 sections.forEach(s => ioNav.observe(s));
+
+// ── IMAGE BG COLOR PER SECTION ──
+// Coloreamos levemente los fondos de imagen según el color de sección
+document.querySelectorAll('.sport-card .card-image').forEach(el => {
+  el.style.boxShadow = 'inset 0 0 60px rgba(0,229,255,.06)';
+});
+document.querySelectorAll('.music-card .card-image').forEach(el => {
+  el.style.boxShadow = 'inset 0 0 60px rgba(196,80,255,.08)';
+});
+document.querySelectorAll('.politics-card .card-image').forEach(el => {
+  el.style.boxShadow = 'inset 0 0 60px rgba(255,140,53,.06)';
+});
 </script>
 </body>
 </html>
