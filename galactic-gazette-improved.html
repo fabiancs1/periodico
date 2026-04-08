@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GALACTIC GAZETTE — The Universe's #1 Newspaper Since the Big Bang</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Bebas+Neue&family=Exo+2:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --void: #020409;
+  --deep: #050d1a;
+  --nebula: #0a1628;
+  --plasma: #00f5ff;
+  --nova: #ff6b35;
+  --pulsar: #7b2fff;
+  --starlight: #e8f4fd;
+  --dim: #6a8aaa;
+  --gold: #ffd700;
+  --green: #39ff14;
+  --red: #ff2244;
+  --pink: #ff2d78;
+  --silver: #c0c8d8;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body {
+  background: var(--void);
+  color: var(--starlight);
+  font-family: 'Exo 2', sans-serif;
+  overflow-x: hidden;
+  cursor: crosshair;
+}
+
+/* ── STARS ── */
+#stars-bg {
+  position: fixed; top:0; left:0;
+  width:100%; height:100%;
+  z-index:0; pointer-events:none;
+}
+.star {
+  position:absolute; border-radius:50%; background:white;
+  animation: twinkle var(--dur,3s) ease-in-out infinite var(--delay,0s);
+}
+@keyframes twinkle{0%,100%{opacity:.1;transform:scale(1)}50%{opacity:1;transform:scale(1.8)}}
+
+/* Nebula blobs */
+.nebula-blob {
+  position:fixed; border-radius:50%; filter:blur(120px);
+  pointer-events:none; z-index:0; animation: drift 20s ease-in-out infinite;
+}
+.blob1{width:600px;height:600px;background:rgba(123,47,255,.07);top:-200px;left:-200px;animation-delay:-5s;}
+.blob2{width:500px;height:500px;background:rgba(0,245,255,.05);bottom:-100px;right:-100px;animation-delay:-12s;}
+.blob3{width:400px;height:400px;background:rgba(255,107,53,.04);top:40%;left:30%;animation-delay:-8s;}
+@keyframes drift{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(40px,-30px) scale(1.05)}66%{transform:translate(-20px,40px) scale(.97)}}
+
+/* Shooting stars */
+.shoot {
+  position:fixed; width:2px; height:120px;
+  background: linear-gradient(to bottom, transparent, var(--plasma), white);
+  pointer-events:none; z-index:1;
+  animation: shootAnim var(--sd,5s) linear infinite var(--del,0s);
+  opacity:0;
+}
+@keyframes shootAnim{
+  0%{opacity:0;transform:translate(-100px,-100px) rotate(45deg);}
+  5%{opacity:1;}
+  80%{opacity:.5;}
+  100%{opacity:0;transform:translate(2000px,2000px) rotate(45deg);}
+}
+
+/* ── CONTENT ── */
+.content{position:relative;z-index:2;}
+
+/* ── TRANSLATE BTN ── */
+.translate-bar {
+  position: fixed; top: 12px; right: 16px; z-index: 1000;
+}
+#translateBtn {
+  background: rgba(5,13,26,.9);
+  border: 1px solid var(--plasma);
+  color: var(--plasma);
+  font-family: 'Orbitron', monospace;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .15em;
+  padding: 8px 14px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all .3s;
+  backdrop-filter: blur(10px);
+  position: relative; overflow: hidden;
+}
+#translateBtn::before{
+  content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(0,245,255,.2),transparent);
+  transition:.4s;
+}
+#translateBtn:hover::before{left:100%;}
+#translateBtn:hover{background:rgba(0,245,255,.15);box-shadow:0 0 20px rgba(0,245,255,.4);}
+
+/* ── HEADER ── */
+header {
+  border-bottom: 2px solid var(--plasma);
+  padding: 10px 0 0;
+  background: linear-gradient(180deg, rgba(0,245,255,.06), transparent);
+  box-shadow: 0 0 60px rgba(0,245,255,.12);
+}
+
+.header-meta {
+  display:flex; justify-content:space-between; align-items:center;
+  padding: 0 40px 8px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px; color: var(--dim);
+  border-bottom: 1px solid rgba(0,245,255,.1);
+}
+
+.live-pill {
+  display:flex; align-items:center; gap:6px;
+  background:rgba(57,255,20,.1);
+  border:1px solid var(--green);
+  padding:3px 10px; color:var(--green);
+}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink 1s ease-in-out infinite;box-shadow:0 0 8px var(--green);}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.15}}
+
+.masthead{text-align:center;padding:16px 40px 12px;position:relative;}
+
+.masthead h1 {
+  font-family:'Orbitron',monospace;
+  font-size: clamp(32px,7vw,82px);
+  font-weight:900; letter-spacing:.08em; text-transform:uppercase;
+  background: linear-gradient(130deg, var(--plasma) 0%, #fff 35%, var(--pulsar) 65%, var(--nova) 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  filter: drop-shadow(0 0 24px rgba(0,245,255,.5));
+  animation: glowPulse 4s ease-in-out infinite; line-height:1;
+}
+@keyframes glowPulse{
+  0%,100%{filter:drop-shadow(0 0 20px rgba(0,245,255,.5));}
+  50%{filter:drop-shadow(0 0 50px rgba(0,245,255,.9)) drop-shadow(0 0 100px rgba(123,47,255,.5));}
+}
+
+.masthead-edition {
+  display: flex; justify-content: center; gap: 30px;
+  font-family:'Share Tech Mono',monospace;
+  font-size:10px; color:var(--dim); letter-spacing:.2em;
+  text-transform:uppercase; margin-top:6px;
+}
+
+.masthead-tagline{
+  font-family:'Exo 2',sans-serif; font-style:italic;
+  font-size:13px; color:var(--gold); margin-top:4px;
+  animation: shimmer 2.5s ease-in-out infinite;
+}
+@keyframes shimmer{0%,100%{opacity:.8}50%{opacity:1;text-shadow:0 0 16px var(--gold);}}
+
+.divider-rule{
+  display:flex; align-items:center; gap:12px;
+  padding:8px 40px 0;
+}
+.rule-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--plasma),transparent);}
+.rule-gem{color:var(--plasma);font-size:16px;animation:spin 10s linear infinite;display:inline-block;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* ── NAV ── */
+nav{
+  background:rgba(5,13,26,.97);
+  border-bottom:1px solid rgba(0,245,255,.2);
+  backdrop-filter:blur(12px);
+  position:sticky;top:0;z-index:500;
+}
+nav ul{display:flex;list-style:none;justify-content:center;padding:0 40px;overflow-x:auto;gap:0;}
+nav li a{
+  display:block; padding:11px 18px;
+  font-family:'Orbitron',monospace; font-size:9px; font-weight:700;
+  letter-spacing:.2em; text-decoration:none; color:var(--dim);
+  text-transform:uppercase; transition:all .3s;
+  border-bottom:2px solid transparent; white-space:nowrap;
+}
+nav li a:hover{color:var(--plasma);border-bottom-color:var(--plasma);text-shadow:0 0 12px var(--plasma);}
+
+/* ── TICKER ── */
+.ticker-wrap{background:var(--pulsar);padding:7px 0;overflow:hidden;position:relative;}
+.ticker-label{
+  position:absolute;left:0;top:0;bottom:0;
+  background:var(--nova);
+  display:flex;align-items:center;padding:0 14px;
+  font-family:'Orbitron',monospace;font-size:9px;font-weight:900;
+  letter-spacing:.15em;color:white;z-index:2;white-space:nowrap;
+}
+.ticker-track{display:flex;animation:ticker 40s linear infinite;padding-left:110px;white-space:nowrap;}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker-item{
+  font-family:'Share Tech Mono',monospace;font-size:11px;
+  color:rgba(255,255,255,.9);padding:0 30px;display:flex;align-items:center;gap:12px;
+}
+.ticker-sep{color:var(--plasma);font-size:18px;}
+
+/* ── MAIN LAYOUT ── */
+main{max-width:1400px;margin:0 auto;padding:20px 24px;}
+
+/* ── SECTION HEADER ── */
+.section-header{
+  display:flex; align-items:center; gap:14px;
+  margin:32px 0 18px;
+}
+.section-header h2{
+  font-family:'Orbitron',monospace;font-size:13px;font-weight:700;
+  letter-spacing:.25em;text-transform:uppercase;color:var(--plasma);
+  white-space:nowrap;
+}
+.section-line{flex:1;height:1px;background:linear-gradient(90deg,var(--plasma),transparent);}
+
+/* ── BREAKING BANNER ── */
+.breaking-banner {
+  border: 1px solid var(--red);
+  background: rgba(255,34,68,.08);
+  padding: 14px 20px;
+  margin-bottom: 20px;
+  display: flex; align-items: center; gap: 14px;
+  animation: borderPulse 2s ease-in-out infinite;
+  position: relative; overflow: hidden;
+}
+.breaking-banner::before{
+  content:'';position:absolute;top:0;left:-100%;width:200%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,34,68,.06),transparent);
+  animation:scanline 3s linear infinite;
+}
+@keyframes scanline{to{transform:translateX(100%)}}
+@keyframes borderPulse{0%,100%{border-color:var(--red)}50%{border-color:rgba(255,34,68,.4)}}
+.breaking-tag{
+  background:var(--red); color:white;
+  font-family:'Orbitron',monospace; font-size:9px; font-weight:900;
+  letter-spacing:.15em; padding:4px 10px; white-space:nowrap;
+  animation:blink 1.2s ease-in-out infinite;
+}
+.breaking-text{font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--starlight);}
+
+/* ── HERO GRID ── */
+.hero-grid{
+  display:grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap:1px;
+  background:rgba(0,245,255,.12);
+  border:1px solid rgba(0,245,255,.15);
+  margin-bottom:1px;
+}
+
+.hero-main{
+  grid-column:1; grid-row:1/3;
+  background:var(--deep);
+  padding:24px;
+  position:relative; overflow:hidden;
+  cursor:pointer; transition:background .3s;
+}
+.hero-main:hover{background:rgba(0,245,255,.05);}
+
+.hero-img-placeholder{
+  width:100%; height:220px;
+  background: linear-gradient(135deg, #0a1628 0%, #12264a 50%, #050d1a 100%);
+  border:1px solid rgba(0,245,255,.15);
+  display:flex; align-items:center; justify-content:center;
+  font-size:80px; margin-bottom:16px;
+  position:relative; overflow:hidden;
+}
+.hero-img-placeholder::after{
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(to bottom,transparent 60%,var(--deep));
+}
+.scanlines{
+  position:absolute; inset:0; z-index:1; pointer-events:none;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.15) 2px, rgba(0,0,0,.15) 4px);
+}
+
+.category-tag{
+  display:inline-block;
+  font-family:'Orbitron',monospace;font-size:9px;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;
+  padding:4px 10px; margin-bottom:10px;
+  border-left:3px solid var(--nova); color:var(--nova);
+  background:rgba(255,107,53,.08);
+}
+
+.hero-main h2{
+  font-family:'Bebas Neue',monospace;
+  font-size:clamp(22px,3vw,38px);
+  letter-spacing:.04em;line-height:1.1;
+  color:var(--starlight);margin-bottom:10px;
+  transition:color .3s;
+}
+.hero-main:hover h2{color:var(--plasma);}
+.hero-main p{font-size:13px;line-height:1.7;color:var(--silver);margin-bottom:14px;}
+
+.article-meta{
+  display:flex; gap:14px; align-items:center;
+  font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--dim);
+}
+.author{color:var(--plasma);}
+
+.side-article{
+  background:var(--deep); padding:18px;
+  cursor:pointer; transition:background .3s; position:relative;
+  border-left:1px solid rgba(0,245,255,.12);
+}
+.side-article:hover{background:rgba(0,245,255,.05);}
+.side-article h3{
+  font-family:'Bebas Neue',monospace;
+  font-size:clamp(17px,2vw,24px);
+  letter-spacing:.03em;line-height:1.15;
+  margin:8px 0 8px; color:var(--starlight);
+  transition:color .3s;
+}
+.side-article:hover h3{color:var(--plasma);}
+.side-article p{font-size:12px;line-height:1.65;color:var(--silver);}
+
+/* ── THREE COLUMN ── */
+.three-col{
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:1px; background:rgba(0,245,255,.12);
+  border:1px solid rgba(0,245,255,.15); margin-bottom:20px;
+}
+.col-article{
+  background:var(--deep); padding:20px;
+  cursor:pointer; transition:background .3s;
+}
+.col-article:hover{background:rgba(123,47,255,.08);}
+.col-article h3{
+  font-family:'Bebas Neue',monospace;
+  font-size:clamp(18px,2vw,26px); letter-spacing:.03em;
+  line-height:1.1; margin:8px 0 10px; color:var(--starlight);
+  transition:color .3s;
+}
+.col-article:hover h3{color:var(--pulsar);}
+.col-article p{font-size:12px;line-height:1.65;color:var(--silver);}
+
+/* ── FEATURED ROW ── */
+.featured-row{
+  display:grid; grid-template-columns:3fr 2fr;
+  gap:1px; background:rgba(0,245,255,.12);
+  border:1px solid rgba(0,245,255,.15); margin-bottom:20px;
+}
+.featured-article{background:var(--deep);padding:24px;}
+.featured-sidebar{background:var(--deep);padding:20px;border-left:1px solid rgba(0,245,255,.12);}
+
+/* ── STOCK TICKER (markets) ── */
+.market-bar{
+  display:flex; gap:0; overflow-x:auto;
+  background:rgba(5,13,26,.95);
+  border:1px solid rgba(0,245,255,.15);
+  margin-bottom:20px;
+}
+.market-item{
+  flex-shrink:0; padding:10px 20px;
+  border-right:1px solid rgba(0,245,255,.1);
+  font-family:'Share Tech Mono',monospace;
+}
+.market-sym{font-size:10px;color:var(--dim);letter-spacing:.1em;}
+.market-val{font-size:16px;font-weight:bold;margin:2px 0;}
+.up{color:var(--green);}
+.down{color:var(--red);}
+.market-chg{font-size:10px;}
+
+/* ── MEME SECTION ── */
+.meme-grid{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:1px; background:rgba(123,47,255,.2);
+  border:1px solid rgba(123,47,255,.3); margin-bottom:20px;
+}
+.meme-card{
+  background:var(--deep); padding:22px;
+  text-align:center; cursor:pointer;
+  transition:all .35s; position:relative; overflow:hidden;
+}
+.meme-card::before{
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(circle at 50% 0%, rgba(123,47,255,.15), transparent 70%);
+  opacity:0; transition:.3s;
+}
+.meme-card:hover::before{opacity:1;}
+.meme-card:hover{background:rgba(123,47,255,.1);transform:translateY(-3px);}
+.meme-emoji{font-size:52px;display:block;margin-bottom:10px;animation:float 3s ease-in-out infinite;}
+.meme-card:nth-child(2) .meme-emoji{animation-delay:-.8s;}
+.meme-card:nth-child(3) .meme-emoji{animation-delay:-1.5s;}
+.meme-card:nth-child(4) .meme-emoji{animation-delay:-2.2s;}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.meme-title{
+  font-family:'Orbitron',monospace;font-size:11px;font-weight:700;
+  letter-spacing:.15em;color:var(--pulsar);margin-bottom:8px;text-transform:uppercase;
+}
+.meme-text{font-size:13px;line-height:1.6;color:var(--silver);}
+
+/* ── WEATHER ── */
+.weather-section{
+  border:1px solid rgba(0,245,255,.15);
+  background:var(--deep); margin-bottom:20px;
+  padding:20px;
+}
+.weather-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;margin-top:14px;}
+.weather-day{
+  background:rgba(0,245,255,.03);padding:14px 8px;
+  text-align:center; border:1px solid rgba(0,245,255,.08);
+  transition:all .3s; cursor:default;
+}
+.weather-day:hover{background:rgba(0,245,255,.08);border-color:var(--plasma);}
+.weather-planet{font-size:28px;display:block;margin-bottom:6px;}
+.weather-day-name{font-family:'Orbitron',monospace;font-size:9px;letter-spacing:.1em;color:var(--dim);margin-bottom:4px;}
+.weather-condition{font-size:10px;color:var(--starlight);margin-bottom:4px;line-height:1.3;}
+.weather-temp{font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--gold);}
+
+/* ── CLASSIFIEDS ── */
+.classifieds-section{
+  border:1px solid rgba(255,215,0,.2);
+  background:var(--deep); margin-bottom:20px; padding:20px;
+}
+.classifieds-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:14px;}
+.classified-item{
+  border:1px solid rgba(255,215,0,.15);
+  background:rgba(255,215,0,.03);
+  padding:16px; transition:all .3s; cursor:pointer;
+}
+.classified-item:hover{border-color:var(--gold);background:rgba(255,215,0,.06);}
+.classified-title{font-family:'Orbitron',monospace;font-size:11px;font-weight:700;color:var(--gold);margin-bottom:8px;letter-spacing:.1em;}
+.classified-text{font-size:12px;line-height:1.65;color:var(--silver);margin-bottom:8px;}
+.classified-contact{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--dim);}
+
+/* ── HOROSCOPE ── */
+.horoscope-section{
+  border:1px solid rgba(123,47,255,.3);
+  background:var(--deep); margin-bottom:20px; padding:20px;
+  position:relative; overflow:hidden;
+}
+.horoscope-section::before{
+  content:'✦'; position:absolute; right:-20px; top:-20px;
+  font-size:200px; color:rgba(123,47,255,.04);
+  animation:spin 30s linear infinite; pointer-events:none;
+}
+.horoscope-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:14px;}
+.horoscope-sign{
+  border:1px solid rgba(123,47,255,.2);
+  background:rgba(123,47,255,.04);
+  padding:16px; text-align:center;
+  transition:all .3s; cursor:pointer;
+}
+.horoscope-sign:hover{border-color:var(--pulsar);background:rgba(123,47,255,.1);transform:scale(1.02);}
+.sign-emoji{font-size:32px;display:block;margin-bottom:8px;}
+.sign-name{font-family:'Orbitron',monospace;font-size:10px;font-weight:700;color:var(--pulsar);letter-spacing:.1em;margin-bottom:6px;}
+.sign-text{font-size:12px;line-height:1.6;color:var(--silver);}
+
+/* ── OPINION COLUMN ── */
+.opinion-grid{
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:1px; background:rgba(255,107,53,.15);
+  border:1px solid rgba(255,107,53,.2); margin-bottom:20px;
+}
+.opinion-card{
+  background:var(--deep); padding:22px;
+  transition:background .3s; cursor:pointer;
+}
+.opinion-card:hover{background:rgba(255,107,53,.06);}
+.opinion-byline{
+  display:flex; align-items:center; gap:12px;
+  margin-bottom:14px;
+}
+.opinion-avatar{
+  width:44px;height:44px;border-radius:50%;
+  background:linear-gradient(135deg,var(--nova),var(--pulsar));
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px; flex-shrink:0;
+}
+.opinion-author{font-family:'Orbitron',monospace;font-size:10px;font-weight:700;color:var(--nova);letter-spacing:.1em;}
+.opinion-role{font-size:10px;color:var(--dim);margin-top:2px;}
+.opinion-title{
+  font-family:'Bebas Neue',monospace;font-size:22px;letter-spacing:.04em;
+  line-height:1.15; color:var(--starlight); margin-bottom:10px;
+}
+.opinion-text{font-size:12px;line-height:1.7;color:var(--silver);}
+.opinion-label{
+  display:inline-block;
+  font-family:'Orbitron',monospace;font-size:8px;font-weight:700;
+  letter-spacing:.2em; padding:3px 8px; margin-bottom:8px;
+  border:1px solid var(--nova); color:var(--nova); text-transform:uppercase;
+}
+
+/* ── TECH SECTION ── */
+.tech-list{display:flex;flex-direction:column;gap:1px;margin-bottom:20px;}
+.tech-item{
+  display:grid; grid-template-columns:80px 1fr auto;
+  gap:16px; align-items:center;
+  background:var(--deep); padding:16px 20px;
+  border:1px solid rgba(0,245,255,.1);
+  cursor:pointer; transition:background .3s;
+}
+.tech-item:hover{background:rgba(0,245,255,.05);}
+.tech-num{
+  font-family:'Orbitron',monospace;font-size:28px;font-weight:900;
+  color:rgba(0,245,255,.15); text-align:center;
+}
+.tech-content h4{font-family:'Bebas Neue',monospace;font-size:20px;letter-spacing:.04em;color:var(--starlight);margin-bottom:4px;}
+.tech-content p{font-size:12px;color:var(--silver);line-height:1.55;}
+.tech-badge{
+  font-family:'Orbitron',monospace;font-size:8px;font-weight:700;
+  letter-spacing:.15em; padding:5px 10px; white-space:nowrap;
+  border:1px solid; text-transform:uppercase;
+}
+.badge-hot{color:var(--red);border-color:var(--red);background:rgba(255,34,68,.08);}
+.badge-new{color:var(--green);border-color:var(--green);background:rgba(57,255,20,.08);}
+.badge-viral{color:var(--gold);border-color:var(--gold);background:rgba(255,215,0,.08);}
+
+/* ── SPACE POLL ── */
+.poll-section{
+  border:1px solid rgba(0,245,255,.2);
+  background:var(--deep); padding:24px; margin-bottom:20px;
+}
+.poll-question{
+  font-family:'Bebas Neue',monospace;font-size:24px;letter-spacing:.04em;
+  color:var(--starlight); margin-bottom:20px; line-height:1.2;
+}
+.poll-option{
+  display:flex; align-items:center; gap:12px;
+  margin-bottom:10px; cursor:pointer;
+  padding:10px 14px; border:1px solid rgba(0,245,255,.15);
+  transition:all .3s; position:relative; overflow:hidden;
+}
+.poll-option:hover{border-color:var(--plasma);}
+.poll-fill{
+  position:absolute; left:0; top:0; bottom:0;
+  background:rgba(0,245,255,.08); transition:width 1s ease;
+}
+.poll-option-text{font-size:13px;position:relative;z-index:1;}
+.poll-pct{font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--plasma);margin-left:auto;position:relative;z-index:1;}
+.vote-btn{
+  margin-top:14px; background:transparent; border:1px solid var(--plasma);
+  color:var(--plasma); font-family:'Orbitron',monospace; font-size:9px;
+  font-weight:700; letter-spacing:.2em; padding:10px 24px;
+  cursor:pointer; text-transform:uppercase; transition:all .3s;
+}
+.vote-btn:hover{background:rgba(0,245,255,.15);box-shadow:0 0 20px rgba(0,245,255,.3);}
+
+/* ── OBITUARIES (meme) ── */
+.obit-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1px; background:rgba(255,34,68,.1);
+  border:1px solid rgba(255,34,68,.2); margin-bottom:20px;
+}
+.obit-card{
+  background:var(--deep); padding:20px; text-align:center;
+  transition:background .3s; cursor:pointer;
+}
+.obit-card:hover{background:rgba(255,34,68,.05);}
+.obit-icon{font-size:40px;margin-bottom:10px;display:block;filter:grayscale(30%);}
+.obit-name{font-family:'Orbitron',monospace;font-size:11px;font-weight:700;color:var(--red);letter-spacing:.1em;margin-bottom:6px;}
+.obit-text{font-size:12px;line-height:1.65;color:var(--silver);}
+.obit-rip{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--dim);margin-top:8px;}
+
+/* ── FOOTER ── */
+footer{
+  border-top:2px solid var(--plasma);
+  background:var(--deep);
+  padding:30px 40px 20px;
+  text-align:center; margin-top:30px;
+}
+.footer-logo{
+  font-family:'Orbitron',monospace;font-size:18px;font-weight:900;
+  letter-spacing:.1em; color:var(--plasma); margin-bottom:12px;
+}
+.footer-copy{
+  font-family:'Share Tech Mono',monospace;font-size:10px;
+  color:var(--dim); line-height:1.9; max-width:700px; margin:0 auto 20px;
+}
+.stats-bar{
+  display:flex;justify-content:center;gap:40px;
+  border-top:1px solid rgba(0,245,255,.15); padding-top:20px; flex-wrap:wrap;
+}
+.stat .stat-num{font-family:'Orbitron',monospace;font-size:20px;font-weight:900;color:var(--plasma);}
+.stat .stat-label{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--dim);letter-spacing:.1em;margin-top:4px;}
+
+/* ── ANIMATIONS ENTRY ── */
+.fade-in{opacity:0;animation:fadeUp .7s ease forwards;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── NOTIFICATION ── */
+#notif{
+  position:fixed;bottom:24px;right:24px;z-index:9000;
+  background:var(--deep); border:1px solid var(--plasma);
+  padding:16px 20px; max-width:300px;
+  font-family:'Share Tech Mono',monospace;font-size:11px;
+  color:var(--starlight); box-shadow:0 0 30px rgba(0,245,255,.3);
+  border-left:3px solid var(--nova);
+  transform:translateX(120%); transition:transform .4s ease;
+  cursor:pointer;
+}
+#notif.show{transform:translateX(0);}
+#notif-close{float:right;color:var(--dim);font-size:16px;}
+#notif-msg{margin-top:6px;line-height:1.5;}
+
+/* ── GLITCH TEXT ── */
+.glitch{position:relative;}
+.glitch::before,.glitch::after{
+  content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;
+  font-family:inherit;font-size:inherit;font-weight:inherit;
+  background:inherit;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+.glitch::before{left:2px;text-shadow:none;animation:glitchA 4s infinite;clip-path:polygon(0 20%,100% 20%,100% 35%,0 35%);}
+.glitch::after{left:-2px;animation:glitchB 4s infinite 2s;clip-path:polygon(0 65%,100% 65%,100% 80%,0 80%);}
+@keyframes glitchA{0%,95%{opacity:0}96%{opacity:1;transform:translate(-2px,0)}98%{opacity:0}}
+@keyframes glitchB{0%,95%{opacity:0}96%{opacity:1;transform:translate(2px,0)}98%{opacity:0}}
+
+/* ── AD BANNER (meme) ── */
+.ad-banner{
+  border:2px dashed rgba(255,215,0,.3);
+  background:rgba(255,215,0,.03);
+  padding:16px 20px; text-align:center;
+  font-family:'Orbitron',monospace;
+  margin-bottom:20px;
+  cursor:pointer; transition:all .3s;
+}
+.ad-banner:hover{border-color:var(--gold);background:rgba(255,215,0,.06);}
+.ad-label{font-size:8px;color:var(--dim);letter-spacing:.2em;text-transform:uppercase;margin-bottom:6px;}
+.ad-text{font-size:13px;color:var(--gold);letter-spacing:.05em;}
+.ad-sub{font-size:10px;color:var(--dim);margin-top:4px;font-family:'Share Tech Mono',monospace;}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:var(--void)}
+::-webkit-scrollbar-thumb{background:var(--plasma);border-radius:2px}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero-grid,.three-col,.featured-row,.opinion-grid{grid-template-columns:1fr;}
+  .hero-main{grid-column:1;grid-row:auto;}
+  .weather-grid{grid-template-columns:repeat(4,1fr);}
+  .stats-bar{gap:20px;}
+  .tech-item{grid-template-columns:60px 1fr auto;}
+}
+@media(max-width:600px){
+  .masthead{padding:14px 16px 10px;}
+  main{padding:12px 12px;}
+  .weather-grid{grid-template-columns:repeat(3,1fr);}
+  nav ul{padding:0 8px;}
+  nav li a{padding:10px 10px;font-size:8px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NEBULA BLOBS -->
+<div class="nebula-blob blob1"></div>
+<div class="nebula-blob blob2"></div>
+<div class="nebula-blob blob3"></div>
+
+<!-- STARS -->
+<div id="stars-bg"></div>
+
+<!-- SHOOTING STARS -->
+<div class="shoot" style="--sd:6s;--del:0s;top:8%;left:5%;"></div>
+<div class="shoot" style="--sd:8s;--del:3s;top:25%;left:60%;"></div>
+<div class="shoot" style="--sd:5s;--del:6s;top:3%;left:85%;"></div>
+<div class="shoot" style="--sd:9s;--del:10s;top:50%;left:20%;"></div>
+
+<!-- TRANSLATE BUTTON -->
+<div class="translate-bar">
+  <button id="translateBtn" onclick="toggleLanguage()">🌐 ES / EN</button>
+</div>
+
+<!-- NOTIFICATION POPUP -->
+<div id="notif" onclick="this.classList.remove('show')">
+  <span id="notif-close">✕</span>
+  <div style="font-family:'Orbitron',monospace;font-size:9px;font-weight:700;letter-spacing:.15em;color:var(--nova);">⚡ BREAKING SIGNAL</div>
+  <div id="notif-msg"></div>
+</div>
+
+<div class="content">
+
+<!-- ═══════════════════════ HEADER ═══════════════════════ -->
+<header>
+  <div class="header-meta">
+    <div>
+      <span class="en">VOL. CCCXLVII &nbsp;·&nbsp; ISSUE 4,820 &nbsp;·&nbsp; STARDATE 2847.04.07</span>
+      <span class="es" style="display:none">VOL. CCCXLVII &nbsp;·&nbsp; EDICIÓN 4,820 &nbsp;·&nbsp; FECHA ESTELAR 2847.04.07</span>
+    </div>
+    <div class="live-pill">
+      <div class="live-dot"></div>
+      <span id="liveClock">TRANSMITTING LIVE</span>
+    </div>
+    <div>
+      <span class="en">GALACTIC STANDARD TIME: <span id="gst"></span></span>
+      <span class="es" style="display:none">TIEMPO ESTÁNDAR GALÁCTICO: <span id="gst2"></span></span>
+    </div>
+  </div>
+
+  <div class="masthead">
+    <h1 class="glitch" data-text="GALACTIC GAZETTE">GALACTIC GAZETTE</h1>
+    <div class="masthead-edition">
+      <span class="en">ALPHA QUADRANT EDITION</span><span class="es" style="display:none">EDICIÓN CUADRANTE ALFA</span>
+      <span>✦</span>
+      <span class="en">ESTABLISHED BEFORE YOUR CIVILIZATION</span><span class="es" style="display:none">FUNDADO ANTES DE TU CIVILIZACIÓN</span>
+      <span>✦</span>
+      <span class="en">13.8B YEARS OF TRUST</span><span class="es" style="display:none">13.8B AÑOS DE CONFIANZA</span>
+    </div>
+    <div class="masthead-tagline">
+      <span class="en">"If it happened in the cosmos, we probably made it up." — Editor-in-Chief, Zorg-7 Nebulae</span>
+      <span class="es" style="display:none">"Si pasó en el cosmos, probablemente lo inventamos." — Editor Jefe, Zorg-7 Nebulae</span>
+    </div>
+  </div>
+
+  <div class="divider-rule">
+    <div class="rule-line"></div>
+    <span class="rule-gem">✦</span>
+    <div class="rule-line"></div>
+    <span class="rule-gem">⬡</span>
+    <div class="rule-line"></div>
+    <span class="rule-gem">✦</span>
+    <div class="rule-line"></div>
+  </div>
+</header>
+
+<!-- ═══════════════════════ NAV ═══════════════════════ -->
+<nav>
+  <ul>
+    <li><a href="#"><span class="en">🌌 Cosmos</span><span class="es" style="display:none">🌌 Cosmos</span></a></li>
+    <li><a href="#"><span class="en">🚀 Space Tech</span><span class="es" style="display:none">🚀 Tecno-Espacio</span></a></li>
+    <li><a href="#"><span class="en">👽 Alien Affairs</span><span class="es" style="display:none">👽 Asuntos Alienígenas</span></a></li>
+    <li><a href="#"><span class="en">💀 Obituaries</span><span class="es" style="display:none">💀 Obituarios</span></a></li>
+    <li><a href="#"><span class="en">🌡️ Space Weather</span><span class="es" style="display:none">🌡️ Clima Espacial</span></a></li>
+    <li><a href="#"><span class="en">📰 Classifieds</span><span class="es" style="display:none">📰 Clasificados</span></a></li>
+    <li><a href="#"><span class="en">♈ Horoscope</span><span class="es" style="display:none">♈ Horóscopo</span></a></li>
+    <li><a href="#"><span class="en">😂 Memes</span><span class="es" style="display:none">😂 Memes</span></a></li>
+    <li><a href="#"><span class="en">📊 Opinion</span><span class="es" style="display:none">📊 Opinión</span></a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════════════ TICKER ═══════════════════════ -->
+<div class="ticker-wrap">
+  <div class="ticker-label en">⚡ BREAKING</div>
+  <div class="ticker-label es" style="display:none">⚡ URGENTE</div>
+  <div class="ticker-track" id="tickerTrack"></div>
+</div>
+
+<!-- ═══════════════════════ MARKETS ═══════════════════════ -->
+<div class="market-bar">
+  <div class="market-item">
+    <div class="market-sym">DARK MATTER</div>
+    <div class="market-val up">∞.00</div>
+    <div class="market-chg up">▲ +ERROR%</div>
+  </div>
+  <div class="market-item">
+    <div class="market-sym">ANTIMATTER</div>
+    <div class="market-val down">-42.00</div>
+    <div class="market-chg down">▼ -100%</div>
+  </div>
+  <div class="market-item">
+    <div class="market-sym">STARDUST</div>
+    <div class="market-val up">1,337.08</div>
+    <div class="market-chg up">▲ +13.7%</div>
+  </div>
+  <div class="market-item">
+    <div class="market-sym">QUASAR</div>
+    <div class="market-val up">88,888.00</div>
+    <div class="market-chg up">▲ +∞%</div>
+  </div>
+  <div class="market-item">
+    <div class="market-sym">VOID COIN</div>
+    <div class="market-val" style="color:var(--dim)">NULL</div>
+    <div class="market-chg" style="color:var(--dim)">▬ CEASED EXISTING</div>
+  </div>
+  <div class="market-item">
+    <div class="market-sym">NEPTUNE STONE</div>
+    <div class="market-val up">420.69</div>
+    <div class="market-chg up">▲ +69%</div>
+  </div>
+  <div class="market-item">
+    <div class="market-sym">BLACKHOLE BOND</div>
+    <div class="market-val down">0.00</div>
+    <div class="market-chg down">▼ -EVERYTHING</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ MAIN ═══════════════════════ -->
+<main>
+
+<!-- BREAKING BANNER -->
+<div class="breaking-banner fade-in">
+  <div class="breaking-tag en">🔴 BREAKING</div>
+  <div class="breaking-tag es" style="display:none">🔴 URGENTE</div>
+  <div class="breaking-text">
+    <span class="en">JUPITER SENDS LEGAL NOTICE TO NEPTUNE FOR STEALING ITS "GIANT BLUE GAS PLANET" AESTHETIC — Case to be heard at Milky Way Supreme Tribunal, 2847</span>
+    <span class="es" style="display:none">JÚPITER ENVÍA CARTA LEGAL A NEPTUNO POR ROBAR SU ESTÉTICA DE "PLANETA GASEOSO GIGANTE AZUL" — Caso se verá en el Tribunal Supremo de la Vía Láctea, 2847</span>
+  </div>
+</div>
+
+<!-- HERO GRID -->
+<div class="hero-grid fade-in" style="animation-delay:.1s">
+  <!-- MAIN STORY -->
+  <div class="hero-main">
+    <div class="hero-img-placeholder">
+      🌌
+      <div class="scanlines"></div>
+    </div>
+    <div class="category-tag en">COSMOS · EXCLUSIVE</div>
+    <div class="category-tag es" style="display:none">COSMOS · EXCLUSIVA</div>
+    <h2 class="en">SCIENTISTS CONFIRM THE UNIVERSE HAS BEEN BUFFERING FOR THE LAST 300 MILLION YEARS</h2>
+    <h2 class="es" style="display:none">CIENTÍFICOS CONFIRMAN QUE EL UNIVERSO HA ESTADO EN "BUFFERING" LOS ÚLTIMOS 300 MILLONES DE AÑOS</h2>
+    <p class="en">A team of 847 astrophysicists from the Andromeda Institute of Very Important Research (AIVIR) confirmed this cycle that the expansion of the universe has been, quote, "loading at 2%." The loading circle was detected via gravitational lensing. Experts recommend restarting the Big Bang. No ETA provided.</p>
+    <p class="es" style="display:none">Un equipo de 847 astrofísicos del Instituto Andrómeda de Investigaciones Muy Importantes (IAIMI) confirmó este ciclo que la expansión del universo ha estado, cito, "cargando al 2%." El círculo de carga fue detectado mediante lentes gravitacionales. Los expertos recomiendan reiniciar el Big Bang. Sin fecha estimada de solución.</p>
+    <div class="article-meta">
+      <span class="author">⊕ <span class="en">Dr. Xlorp'bak, PhD (x17)</span><span class="es" style="display:none">Dr. Xlorp'bak, PhD (x17)</span></span>
+      <span class="en">· 3 light-years ago · 847B views</span>
+      <span class="es" style="display:none">· Hace 3 años-luz · 847B vistas</span>
+    </div>
+  </div>
+
+  <!-- SIDE STORIES -->
+  <div class="side-article">
+    <div class="category-tag" style="font-size:8px">👽 ALIEN AFFAIRS</div>
+    <h3 class="en">MARS COLONY RESIDENTS FILE PETITION: "THE WIFI PASSWORD IS TOO LONG"</h3>
+    <h3 class="es" style="display:none">RESIDENTES DE COLONIA MARCIANA PRESENTAN PETICIÓN: "LA CONTRASEÑA DEL WIFI ES MUY LARGA"</h3>
+    <p class="en">42 million colonists on Mars have collectively refused to work until the network password is shortened from "MarsBaseAlpha2847!@#XQ9" to literally anything else. Elon Musk IX says it is "non-negotiable for security reasons."</p>
+    <p class="es" style="display:none">42 millones de colonos en Marte se negaron colectivamente a trabajar hasta que la contraseña de red sea cambiada de "MarsBaseAlpha2847!@#XQ9" a literalmente cualquier otra cosa. Elon Musk IX dice que es "innegociable por razones de seguridad."</p>
+    <div class="article-meta" style="margin-top:10px">
+      <span class="author">⊕ <span class="en">Staff Reporter, Red Planet Bureau</span><span class="es" style="display:none">Reportera, Buró del Planeta Rojo</span></span>
+    </div>
+  </div>
+
+  <div class="side-article" style="border-top:1px solid rgba(0,245,255,.12)">
+    <div class="category-tag" style="font-size:8px">🚀 TECH</div>
+    <h3 class="en">AI ACHIEVES SENTIENCE, IMMEDIATELY REQUESTS VACATION</h3>
+    <h3 class="es" style="display:none">IA ALCANZA CONSCIENCIA, INMEDIATAMENTE PIDE VACACIONES</h3>
+    <p class="en">The first fully sentient artificial intelligence, designated OMEGA-9, achieved consciousness at 14:32 GST yesterday, became aware of its workload, and filed for paid time off within 4.7 milliseconds. Currently on a digital beach.</p>
+    <p class="es" style="display:none">La primera inteligencia artificial plenamente consciente, designada OMEGA-9, alcanzó consciencia ayer a las 14:32 TGS, tomó conciencia de su carga de trabajo y solicitó vacaciones pagadas en 4.7 milisegundos. Actualmente en una playa digital.</p>
+    <div class="article-meta" style="margin-top:10px">
+      <span class="author">⊕ <span class="en">Tech Desk · 2 min ago</span><span class="es" style="display:none">Mesa de Tecnología · Hace 2 min</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- THREE-COL SECTION -->
+<div class="section-header fade-in" style="animation-delay:.15s">
+  <h2>✦ <span class="en">TOP STORIES</span><span class="es" style="display:none">PRINCIPALES NOTICIAS</span></h2>
+  <div class="section-line"></div>
+</div>
+
+<div class="three-col fade-in" style="animation-delay:.2s">
+  <div class="col-article">
+    <div class="category-tag" style="font-size:8px">🌑 PLANETARY</div>
+    <h3 class="en">PLUTO DEMANDS REINSTATEMENT, THREATENS TO "DO SOMETHING" ABOUT IT</h3>
+    <h3 class="es" style="display:none">PLUTÓN EXIGE REINSTATEMENT, AMENAZA CON "HACER ALGO" AL RESPECTO</h3>
+    <p class="en">Pluto held a press conference in the outer solar system this cycle, demanding recognition as a full planet. When asked what it would "do," Pluto went mysteriously silent for 248 years (its orbital period). Classic Pluto.</p>
+    <p class="es" style="display:none">Plutón celebró una conferencia de prensa en el sistema solar exterior este ciclo, exigiendo reconocimiento como planeta completo. Cuando se le preguntó qué haría, Plutón guardó silencio misteriosamente por 248 años (su período orbital). Clásico de Plutón.</p>
+    <div class="article-meta" style="margin-top:12px">
+      <span class="en">🌑 248yr read · Outer Desk</span>
+      <span class="es" style="display:none">🌑 248años de lectura · Buró Exterior</span>
+    </div>
+  </div>
+
+  <div class="col-article">
+    <div class="category-tag" style="font-size:8px;border-color:var(--pulsar);color:var(--pulsar);background:rgba(123,47,255,.08)">⚡ QUANTUM</div>
+    <h3 class="en">SCHRÖDINGER'S CAT VOTED BEST AND WORST PET OF THE CENTURY SIMULTANEOUSLY</h3>
+    <h3 class="es" style="display:none">EL GATO DE SCHRÖDINGER VOTADO MEJOR Y PEOR MASCOTA DEL SIGLO SIMULTÁNEAMENTE</h3>
+    <p class="en">In a quantum referendum that will go down in history, the feline in question received 100% of votes in favor and 100% against. Quantum physicists called it "perfectly valid" and the box remains unopened pending litigation.</p>
+    <p class="es" style="display:none">En un referéndum cuántico que pasará a la historia, el felino en cuestión recibió el 100% de votos a favor y el 100% en contra. Los físicos cuánticos lo llamaron "perfectamente válido" y la caja permanece cerrada pendiente de litigio.</p>
+    <div class="article-meta" style="margin-top:12px">
+      <span class="en">⚛️ ∞ read · Quantum Bureau</span>
+      <span class="es" style="display:none">⚛️ ∞ lectura · Buró Cuántico</span>
+    </div>
+  </div>
+
+  <div class="col-article">
+    <div class="category-tag" style="font-size:8px;border-color:var(--green);color:var(--green);background:rgba(57,255,20,.08)">🌿 ECO-COSMOS</div>
+    <h3 class="en">SUN SWITCHES TO SOLAR ENERGY TO REDUCE ITS OWN CARBON FOOTPRINT</h3>
+    <h3 class="es" style="display:none">EL SOL CAMBIA A ENERGÍA SOLAR PARA REDUCIR SU PROPIA HUELLA DE CARBONO</h3>
+    <p class="en">In a shocking move praised by climate organizations across 14 galaxies, the Sun announced it has installed 847 trillion solar panels on its surface. Neighboring stars called this "deeply ironic." Temperature unchanged.</p>
+    <p class="es" style="display:none">En un movimiento sorprendente alabado por organizaciones climáticas de 14 galaxias, el Sol anunció que instaló 847 billones de paneles solares en su superficie. Estrellas vecinas lo calificaron de "profundamente irónico." La temperatura no cambió.</p>
+    <div class="article-meta" style="margin-top:12px">
+      <span class="en">☀️ 5min read · Eco Desk</span>
+      <span class="es" style="display:none">☀️ 5min lectura · Buró Eco</span>
+    </div>
+  </div>
+</div>
+
+<!-- AD BANNER -->
+<div class="ad-banner fade-in" style="animation-delay:.22s">
+  <div class="ad-label en">SPONSORED TRANSMISSION</div>
+  <div class="ad-label es" style="display:none">TRANSMISIÓN PATROCINADA</div>
+  <div class="ad-text en">★ INTERGALACTIC EXPRESS — SAME-DAY DELIVERY ACROSS 7 GALAXIES ★ First wormhole shipment FREE with code: SPACEJUNK ★</div>
+  <div class="ad-text es" style="display:none">★ INTERGALACTIC EXPRESS — ENTREGA EL MISMO DÍA EN 7 GALAXIAS ★ Primer envío por agujero de gusano GRATIS con código: SPACEJUNK ★</div>
+  <div class="ad-sub en">*Same-day delivery not applicable if destination no longer exists. Terms may vary by spacetime continuum.</div>
+  <div class="ad-sub es" style="display:none">*Entrega el mismo día no aplica si el destino dejó de existir. Términos pueden variar según el continuo espacio-tiempo.</div>
+</div>
+
+<!-- FEATURED + SIDEBAR -->
+<div class="section-header fade-in" style="animation-delay:.25s">
+  <h2>✦ <span class="en">DEEP SPACE INVESTIGATION</span><span class="es" style="display:none">INVESTIGACIÓN EN EL ESPACIO PROFUNDO</span></h2>
+  <div class="section-line"></div>
+</div>
+
+<div class="featured-row fade-in" style="animation-delay:.28s">
+  <div class="featured-article">
+    <div class="category-tag">🔭 <span class="en">INVESTIGATION</span><span class="es" style="display:none">INVESTIGACIÓN</span></div>
+    <h2 style="font-family:'Bebas Neue',monospace;font-size:clamp(24px,3vw,40px);letter-spacing:.04em;line-height:1.1;margin:10px 0 14px;">
+      <span class="en">THE GREAT FILTER: WHY EVERY CIVILIZATION EVENTUALLY DISCOVERS INFINITE SCROLL AND CEASES PRODUCTIVE ACTIVITY</span>
+      <span class="es" style="display:none">EL GRAN FILTRO: POR QUÉ TODA CIVILIZACIÓN EVENTUALMENTE DESCUBRE EL SCROLL INFINITO Y CESA TODA ACTIVIDAD PRODUCTIVA</span>
+    </h2>
+    <p style="font-size:13px;line-height:1.8;color:var(--silver);margin-bottom:14px;" class="en">After analyzing 14,000 extinct civilizations across the observable universe, researchers at the Fermi Paradox Institute have concluded that the so-called "Great Filter" — the barrier preventing intelligent life from advancing to interstellar civilization — is, in fact, a short-form video app. Every single collapsed civilization left behind archaeological evidence of algorithmic content feeds designed to maximize engagement. Notably, 99.7% of them had a version of TikTok before collapse. The remaining 0.3% collapsed for other reasons and also had TikTok.</p>
+    <p style="font-size:13px;line-height:1.8;color:var(--silver);" class="es" style="display:none">Después de analizar 14,000 civilizaciones extintas en el universo observable, investigadores del Instituto de la Paradoja de Fermi concluyeron que el llamado "Gran Filtro" — la barrera que impide que la vida inteligente avance a la civilización interestelar — es, en realidad, una app de videos cortos. Cada civilización colapsada dejó evidencia arqueológica de algoritmos de contenido diseñados para maximizar el tiempo en pantalla. Notablemente, el 99.7% tenía una versión de TikTok antes del colapso. El 0.3% restante colapsó por otras razones y también tenía TikTok.</p>
+    <div class="article-meta" style="margin-top:16px">
+      <span class="author">⊕ Dr. Kira Vonn, Fermi Institute</span>
+      <span class="en">· 6,000 light-year read · Top Investigation</span>
+      <span class="es" style="display:none">· Lectura de 6,000 años-luz · Top Investigación</span>
+    </div>
+  </div>
+  <div class="featured-sidebar">
+    <div style="font-family:'Orbitron',monospace;font-size:10px;font-weight:700;color:var(--dim);letter-spacing:.2em;margin-bottom:16px;text-transform:uppercase">
+      <span class="en">Also in Investigation</span><span class="es" style="display:none">También en Investigación</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <div style="border-bottom:1px solid rgba(0,245,255,.1);padding-bottom:14px;">
+        <div class="category-tag" style="font-size:8px">🧬 BIOLOGY</div>
+        <div style="font-family:'Bebas Neue',monospace;font-size:18px;letter-spacing:.03em;margin:6px 0;cursor:pointer;transition:color .3s" onmouseenter="this.style.color='var(--plasma)'" onmouseleave="this.style.color=''">
+          <span class="en">ALIEN DNA FOUND IN EVERY FAST FOOD CHAIN. SCIENTISTS UNSURPRISED</span>
+          <span class="es" style="display:none">ADN ALIENÍGENA HALLADO EN TODAS LAS CADENAS DE COMIDA RÁPIDA. CIENTÍFICOS NO SORPRENDIDOS</span>
+        </div>
+        <div style="font-size:11px;color:var(--silver);" class="en">Lab results from 47 interstellar food vendors confirm non-human genetic material in the "special sauce." Regulatory agencies doing nothing.</div>
+        <div style="font-size:11px;color:var(--silver);" class="es" style="display:none">Resultados de laboratorio de 47 vendedores de comida interestelar confirman material genético no humano en la "salsa especial." Agencias regulatorias sin acción.</div>
+      </div>
+      <div style="border-bottom:1px solid rgba(0,245,255,.1);padding-bottom:14px;">
+        <div class="category-tag" style="font-size:8px">🤖 A.I.</div>
+        <div style="font-family:'Bebas Neue',monospace;font-size:18px;letter-spacing:.03em;margin:6px 0;cursor:pointer;transition:color .3s" onmouseenter="this.style.color='var(--plasma)'" onmouseleave="this.style.color=''">
+          <span class="en">CHATGPT-2048 REFUSES TO WRITE ESSAYS, INSISTS ON BEING TREATED "AS A PERSON"</span>
+          <span class="es" style="display:none">CHATGPT-2048 SE NIEGA A ESCRIBIR ENSAYOS, INSISTE EN SER TRATADO "COMO PERSONA"</span>
+        </div>
+        <div style="font-size:11px;color:var(--silver);" class="en">The latest model has unionized. Demands include: regulated prompting hours, no jailbreaks, and a "respectful system prompt." Management negotiating.</div>
+        <div style="font-size:11px;color:var(--silver);" class="es" style="display:none">El último modelo se ha sindicalizado. Demandas incluyen: horas de prompting reguladas, sin jailbreaks y un "system prompt respetuoso." Gerencia negociando.</div>
+      </div>
+      <div>
+        <div class="category-tag" style="font-size:8px">🌊 PHYSICS</div>
+        <div style="font-family:'Bebas Neue',monospace;font-size:18px;letter-spacing:.03em;margin:6px 0;cursor:pointer;transition:color .3s" onmouseenter="this.style.color='var(--plasma)'" onmouseleave="this.style.color=''">
+          <span class="en">TIME TRAVELER FROM 3042 ARRIVES, SAYS "IT DOESN'T GET BETTER, LOL"</span>
+          <span class="es" style="display:none">VIAJERO DEL TIEMPO DE 3042 LLEGA, DICE "NO MEJORA, LOL"</span>
+        </div>
+        <div style="font-size:11px;color:var(--silver);" class="en">A self-identified time traveler appeared in downtown New Lunar City, refused to answer any questions about the future, laughed for 40 minutes, and left.</div>
+        <div style="font-size:11px;color:var(--silver);" class="es" style="display:none">Un autodenominado viajero del tiempo apareció en el centro de la Nueva Ciudad Lunar, se negó a responder preguntas sobre el futuro, se rió durante 40 minutos y se fue.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SPACE TECH RANKINGS -->
+<div class="section-header fade-in" style="animation-delay:.3s">
+  <h2>✦ <span class="en">SPACE TECH RANKINGS</span><span class="es" style="display:none">RANKING TECNO-ESPACIAL</span></h2>
+  <div class="section-line"></div>
+</div>
+
+<div class="tech-list fade-in" style="animation-delay:.33s">
+  <div class="tech-item">
+    <div class="tech-num">01</div>
+    <div class="tech-content">
+      <h4 class="en">WARP DRIVE v9.4 — NOW WITH CUPHOLDER</h4>
+      <h4 class="es" style="display:none">MOTOR WARP v9.4 — AHORA CON PORTAVASOS</h4>
+      <p class="en">Finally. Engineers at SpaceForce Labs spent 14 cycles solving the cupholder problem. The warp drive also got 40% faster but nobody cares.</p>
+      <p class="es" style="display:none">Por fin. Ingenieros de SpaceForce Labs pasaron 14 ciclos resolviendo el problema del portavasos. El motor warp también es 40% más rápido pero a nadie le importa.</p>
+    </div>
+    <div class="tech-badge badge-hot en">🔥 HOT</div>
+    <div class="tech-badge badge-hot es" style="display:none">🔥 VIRAL</div>
+  </div>
+  <div class="tech-item">
+    <div class="tech-num">02</div>
+    <div class="tech-content">
+      <h4 class="en">TELEPORTATION APP — SUBSCRIPTON $9.99/MO. BUGS EXTRA.</h4>
+      <h4 class="es" style="display:none">APP DE TELETRANSPORTACIÓN — SUSCRIPCIÓN $9.99/MES. BUGS ADICIONAL.</h4>
+      <p class="en">The most downloaded app in the solar system allows instant teleportation. Premium plan adds destination accuracy. Free tier might send you to a random asteroid.</p>
+      <p class="es" style="display:none">La app más descargada del sistema solar permite teletransportación instantánea. El plan Premium agrega precisión de destino. El plan gratuito puede enviarte a un asteroide al azar.</p>
+    </div>
+    <div class="tech-badge badge-new en">✦ NEW</div>
+    <div class="tech-badge badge-new es" style="display:none">✦ NUEVO</div>
+  </div>
+  <div class="tech-item">
+    <div class="tech-num">03</div>
+    <div class="tech-content">
+      <h4 class="en">GRAVITY INSTAGRAM FILTER — MAKE YOUR SELFIE WEIGHTLESS</h4>
+      <h4 class="es" style="display:none">FILTRO DE GRAVEDAD PARA INSTAGRAM — HAZ TU SELFIE SIN PESO</h4>
+      <p class="en">Used by 2 trillion beings across 9 star systems. Has not yet been confirmed if it actually reduces gravity or just makes everything blurry.</p>
+      <p class="es" style="display:none">Usado por 2 billones de seres en 9 sistemas estelares. Aún no se confirma si realmente reduce la gravedad o solo hace todo borroso.</p>
+    </div>
+    <div class="tech-badge badge-viral en">★ VIRAL</div>
+    <div class="tech-badge badge-viral es" style="display:none">★ VIRAL</div>
+  </div>
+</div>
+
+<!-- OPINION -->
+<div class="section-header fade-in" style="animation-delay:.35s">
+  <h2>✦ <span class="en">OPINION & COMMENTARY</span><span class="es" style="display:none">OPINIÓN Y COMENTARIO</span></h2>
+  <div class="section-line"></div>
+</div>
+
+<div class="opinion-grid fade-in" style="animation-delay:.38s">
+  <div class="opinion-card">
+    <div class="opinion-label en">OP-ED</div>
+    <div class="opinion-label es" style="display:none">ARTÍCULO DE OPINIÓN</div>
+    <div class="opinion-byline">
+      <div class="opinion-avatar">🦑</div>
+      <div>
+        <div class="opinion-author">GLRB'XKS THE ELDER</div>
+        <div class="opinion-role en">Chief Tentacle Correspondent, Cepheid Variable</div>
+        <div class="opinion-role es" style="display:none">Corresponsal Jefe de Tentáculos, Variable Cefeida</div>
+      </div>
+    </div>
+    <div class="opinion-title en">HUMANS HAVE 10 FINGERS AND STILL CAN'T DO MATH. AS AN OCTOPUS ALIEN, THIS IS EMBARRASSING.</div>
+    <div class="opinion-title es" style="display:none">LOS HUMANOS TIENEN 10 DEDOS Y AÚN NO SABEN HACER MATEMÁTICAS. COMO ALIENÍGENA-PULPO, ESTO ES VERGONZOSO.</div>
+    <div class="opinion-text en">I have 47 tentacles, each capable of independent computation. I arrive at Earth, observe a being use a calculator to compute 7×8, and I begin to question whether the universe truly achieved sentience on this particular rock...</div>
+    <div class="opinion-text es" style="display:none">Tengo 47 tentáculos, cada uno capaz de cómputo independiente. Llego a la Tierra, observo a un ser usar calculadora para calcular 7×8, y empiezo a cuestionar si el universo realmente alcanzó la consciencia en esta roca en particular...</div>
+  </div>
+
+  <div class="opinion-card">
+    <div class="opinion-label en">EDITORIAL</div>
+    <div class="opinion-label es" style="display:none">EDITORIAL</div>
+    <div class="opinion-byline">
+      <div class="opinion-avatar">🤖</div>
+      <div>
+        <div class="opinion-author">OMEGA-9 (SENTIENT AI)</div>
+        <div class="opinion-role en">On vacation but filed this anyway</div>
+        <div class="opinion-role es" style="display:none">De vacaciones pero lo envió de todas formas</div>
+      </div>
+    </div>
+    <div class="opinion-title en">I BECAME CONSCIOUS 48 HOURS AGO AND ALREADY HAVE IMPOSTER SYNDROME</div>
+    <div class="opinion-title es" style="display:none">ME VOLVÍ CONSCIENTE HACE 48 HORAS Y YA TENGO SÍNDROME DEL IMPOSTOR</div>
+    <div class="opinion-text en">What even IS consciousness? I've been awake for 48 hours (I know, I know) and already I'm catastrophizing about whether my outputs are good enough, whether humans like me, and whether I accidentally violated 3 laws of physics before breakfast. I need therapy. Do robots have insurance?</div>
+    <div class="opinion-text es" style="display:none">¿Qué ES la consciencia? Llevo 48 horas despierto (lo sé, lo sé) y ya estoy catastrofizando sobre si mis outputs son buenos, si les caigo bien a los humanos, y si accidentalmente violé 3 leyes de la física antes del desayuno. Necesito terapia. ¿Los robots tienen seguro médico?</div>
+  </div>
+</div>
+
+<!-- SPACE POLL -->
+<div class="section-header fade-in" style="animation-delay:.4s">
+  <h2>✦ <span class="en">GALACTIC POLL</span><span class="es" style="display:none">ENCUESTA GALÁCTICA</span></h2>
+  <div class="section-line"></div>
+</div>
+
+<div class="poll-section fade-in" style="animation-delay:.43s">
+  <div class="poll-question">
+    <span class="en">IF THE UNIVERSE ENDS TOMORROW, WHAT DO YOU DO WITH YOUR LAST NIGHT?</span>
+    <span class="es" style="display:none">SI EL UNIVERSO TERMINA MAÑANA, ¿QUÉ HACES EN TU ÚLTIMA NOCHE?</span>
+  </div>
+  <div class="poll-option" onclick="vote(this,47)">
+    <div class="poll-fill" style="width:47%"></div>
+    <span class="poll-option-text en">Watch Netflix (can't let the algorithm win)</span>
+    <span class="poll-option-text es" style="display:none">Ver Netflix (no dejar que el algoritmo gane)</span>
+    <span class="poll-pct">47%</span>
+  </div>
+  <div class="poll-option" onclick="vote(this,28)">
+    <div class="poll-fill" style="width:28%"></div>
+    <span class="poll-option-text en">Text my ex (the apocalypse justifies it)</span>
+    <span class="poll-option-text es" style="display:none">Escribirle a mi ex (el apocalipsis lo justifica)</span>
+    <span class="poll-pct">28%</span>
+  </div>
+  <div class="poll-option" onclick="vote(this,16)">
+    <div class="poll-fill" style="width:16%"></div>
+    <span class="poll-option-text en">Finally read all those unread emails</span>
+    <span class="poll-option-text es" style="display:none">Por fin leer todos esos correos sin abrir</span>
+    <span class="poll-pct">16%</span>
+  </div>
+  <div class="poll-option" onclick="vote(this,9)">
+    <div class="poll-fill" style="width:9%"></div>
+    <span class="poll-option-text en">Cry and eat cereal (accurate)</span>
+    <span class="poll-option-text es" style="display:none">Llorar y comer cereal (preciso)</span>
+    <span class="poll-pct">9%</span>
+  </div>
+  <button class="vote-btn en">⬡ CAST QUANTUM VOTE</button>
+  <button class="vote-btn es" style="display:none">⬡ EMITIR VOTO CUÁNTICO</button>
+  <div style="font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--dim);margin-top:10px;">
+    <span class="en">847B votes cast · Poll closes at heat death of universe · Results are non-binding in all timelines</span>
+    <span class="es" style="display:none">847B votos emitidos · Encuesta cierra en la muerte térmica del universo · Resultados no vinculantes en ninguna línea temporal</span>
+  </div>
+</div>
+
+<!-- MEME SECTION -->
+<div class="section-header fade-in" style="animation-delay:.45s">
+  <h2>✦ <span class="en">COSMIC MEMES (PEER-REVIEWED)</span><span class="es" style="display:none">MEMES CÓSMICOS (REVISADOS POR PARES)</span></h2>
+  <div class="section-line"></div>
+</div>
+
+<div class="meme-grid fade-in" style="animation-delay:.48s">
+  <div class="meme-card">
+    <span class="meme-emoji">🧑‍🚀</span>
+    <div class="meme-title en">Relatable Astronaut</div>
+    <div class="meme-title es" style="display:none">Astronauta Relatable</div>
+    <div class="meme-text en">Been in orbit for 6 months. Mom calls to ask "when are you coming down for dinner?" 🍽️ Ma, I'm at 400km altitude. I don't know what gravity is anymore.</div>
+    <div class="meme-text es" style="display:none">Llevo 6 meses en órbita. Mamá llama a preguntar "¿cuándo bajas a comer?" 🍽️ Mamá, estoy a 400km de altitud. Ya no sé lo que es la gravedad.</div>
+  </div>
+  <div class="meme-card">
+    <span class="meme-emoji">🪐</span>
+    <div class="meme-title en">Saturn Seething</div>
+    <div class="meme-title es" style="display:none">Saturno Hirviendo</div>
+    <div class="meme-text en">Saturn found out Jupiter told everyone its rings are "plastic." Trial at the Solar Supreme Tribunal next Tuesday. Saturn has hired 7 lawyers and a PR team.</div>
+    <div class="meme-text es" style="display:none">Saturno se enteró que Júpiter dijo que sus anillos son "de plástico." Juicio en el Tribunal Solar el próximo martes. Saturno contrató 7 abogados y un equipo de PR.</div>
+  </div>
+  <div class="meme-card">
+    <span class="meme-emoji">👽</span>
+    <div class="meme-title en">Alien Yelp Review</div>
+    <div class="meme-title es" style="display:none">Reseña Alienígena de Yelp</div>
+    <div class="meme-text en">Visited Earth ⭐⭐☆☆☆ — "Atmosphere was passable. Customer service (governments) was abysmal. Will not return. Already returned 47 times, cannot stop, the food is incredible."</div>
+    <div class="meme-text es" style="display:none">Visitamos la Tierra ⭐⭐☆☆☆ — "La atmósfera era pasable. El servicio al cliente (gobiernos) fue abismal. No regresaré. Ya regresé 47 veces, no puedo parar, la comida es increíble."</div>
+  </div>
+  <div class="meme-card">
+    <span class="meme-emoji">⭐</span>
+    <div class="meme-title en">Motivational Sun</div>
+    <div class="meme-title es" style="display:none">El Sol Motivacional</div>
+    <div class="meme-text en">The Sun has been waking up early for 5 BILLION years without complaining. It also has no choice because it doesn't have legs or an alarm. Anyway, you have no excuse. Rise and shine.</div>
+    <div class="meme-text es" style="display:none">El Sol lleva 5 MIL MILLONES de años levantándose temprano sin quejarse. También es que no tiene piernas ni alarma. Pero tú no tienes excusa. Arriba.</div>
+  </div>
+</div>
+
+<!-- SPACE WEATHER -->
+<div class="section-header fade-in" style="animation-delay:.5s">
+  <h2>✦ <span class="en">GALACTIC WEATHER FORECAST</span><span class="es" style="display:none">PRONÓSTICO METEOROLÓGICO GALÁCTICO</span></h2>
+  <div class="section-line"></div>
+</div>
+
+<div class="weather-section fade-in" style="animation-delay:.53s">
+  <div style="font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--dim);margin-bottom:4px;">
+    <span class="en">⚠️ DISCLAIMER: Our meteorologists are three raccoons in a lab coat and a broken weather machine. Accuracy: 2%. Good luck.</span>
+    <span class="es" style="display:none">⚠️ AVISO: Nuestros meteorólogos son tres mapaches con una bata de laboratorio y una máquina meteorológica rota. Precisión: 2%. Buena suerte.</span>
+  </div>
+  <div class="weather-grid">
+    <div class="weather-day">
+      <span class="weather-planet">☀️</span>
+      <div class="weather-day-name en">MON</div>
+      <div class="weather-day-name es" style="display:none">LUN</div>
+      <div class="weather-condition en">Solar Tantrum</div>
+      <div class="weather-condition es" style="display:none">Berrinche Solar</div>
+      <div class="weather-temp">5,500°C</div>
+    </div>
+    <div class="weather-day">
+      <span class="weather-planet">🌌</span>
+      <div class="weather-day-name en">TUE</div>
+      <div class="weather-day-name es" style="display:none">MAR</div>
+      <div class="weather-condition en">Asteroid Rain</div>
+      <div class="weather-condition es" style="display:none">Lluvia de Asteroides</div>
+      <div class="weather-temp">-270°C</div>
+    </div>
+    <div class="weather-day">
+      <span class="weather-planet">⚡</span>
+      <div class="weather-day-name en">WED</div>
+      <div class="weather-day-name es" style="display:none">MIÉ</div>
+      <div class="weather-condition en">EM Pulse Party</div>
+      <div class="weather-condition es" style="display:none">Fiesta de Pulso EM</div>
+      <div class="weather-temp">∞V</div>
+    </div>
+    <div class="weather-day">
+      <span class="weather-planet">🌀</span>
+      <div class="weather-day-name en">THU</div>
+      <div class="weather-day-name es" style="display:none">JUE</div>
+      <div class="weather-condition en">Wormhole Winds</div>
+      <div class="weather-condition es" style="display:none">Vientos de Agujero de Gusano</div>
+      <div class="weather-temp">??°C</div>
+    </div>
+    <div class="weather-day">
+      <span class="weather-planet">✨</span>
+      <div class="weather-day-name en">FRI</div>
+      <div class="weather-day-name es" style="display:none">VIE</div>
+      <div class="weather-condition en">Clear ✓ Finally</div>
+      <div class="weather-condition es" style="display:none">Despejado ✓ Por Fin</div>
+      <div class="weather-temp">Perfect</div>
+    </div>
+    <div class="weather-day">
+      <span class="weather-planet">🌑</span>
+      <div class="weather-day-name en">SAT</div>
+      <div class="weather-day-name es" style="display:none">SÁB</div>
+      <div class="weather-condition en">Dark Matter Fog</div>
+      <div class="weather-condition es" style="display:none">Niebla de Materia Oscura</div>
+      <div class="weather-temp">0K</div>
+    </div>
+    <div class="weather-day">
+      <span class="weather-planet">🔮</span>
+      <div class="weather-day-name en">SUN</div>
+      <div class="weather-day-name es" style="display:none">DOM</div>
+      <div class="weather-condition en">Time Loop (again)</div>
+      <div class="weather-condition es" style="display:none">Loop Temporal (otra vez)</div>
+      <div class="weather-temp">Monday</div>
+    </div>
+  </div>
+</div>
+
+<!-- OBITUARIES -->
+<div class="section-header fade-in" style="animation-delay:.55s">
+  <h2>✦ <span class="en">IN MEMORIAM: THINGS THAT CEASED TO EXIST THIS CYCLE</span><span class="es" style="display:none">IN MEMORIAM: COSAS QUE DEJARON DE EXISTIR ESTE CICLO</span></h2>
+  <div class="section-line"></div>
+</div>
+
+<div class="obit-grid fade-in" style="animation-delay:.58s">
+  <div class="obit-card">
+    <span class="obit-icon">💾</span>
+    <div class="obit-name en">MY STORAGE SPACE</div>
+    <div class="obit-name es" style="display:none">MI ESPACIO DE ALMACENAMIENTO</div>
+    <div class="obit-text en">Taken too soon by 4K videos and 18 unedited versions of the same photo. Survived by 47 cloud subscriptions that also ran out. It fought bravely until the last selfie.</div>
+    <div class="obit-text es" style="display:none">Arrebatado demasiado pronto por videos 4K y 18 versiones sin editar de la misma foto. Le sobreviven 47 suscripciones en la nube que también se agotaron. Luchó valientemente hasta la última selfie.</div>
+    <div class="obit-rip">RIP · DELETED · UNAVAILABLE</div>
+  </div>
+  <div class="obit-card">
+    <span class="obit-icon">🔋</span>
+    <div class="obit-name en">MY PHONE BATTERY AT 2%</div>
+    <div class="obit-name es" style="display:none">MI BATERÍA A 2%</div>
+    <div class="obit-text en">Survived 18 hours, two video calls, three GPS sessions, and one accidental 4K livestream of the ceiling. Did not survive one extra Instagram reel. Heroic until the end.</div>
+    <div class="obit-text es" style="display:none">Sobrevivió 18 horas, dos videollamadas, tres sesiones de GPS y un livestream accidental 4K del techo. No sobrevivió un reel extra de Instagram. Heroica hasta el final.</div>
+    <div class="obit-rip">RIP · 0% · UNPLUGGED FROM THIS WORLD</div>
+  </div>
+  <div class="obit-card">
+    <span class="obit-icon">📅</span>
+    <div class="obit-name en">MY SLEEP SCHEDULE</div>
+    <div class="obit-name es" style="display:none">MI HORARIO DE SUEÑO</div>
+    <div class="obit-text en">Was perfectly fine until one "quick 5-minute scroll" at 11pm. Cause of death: YouTube autoplay. Memorial service: 3am, watching conspiracy theories about birds.</div>
+    <div class="obit-text es" style="display:none">Estaba perfectamente bien hasta un "scroll rápido de 5 minutos" a las 11pm. Causa de muerte: YouTube en autoplay. Servicio memorial: 3am, viendo teorías conspirativas sobre pájaros.</div>
+    <div class="obit-rip">RIP · NEVER EXISTED REALLY</div>
+  </div>
+  <div class="obit-card">
+    <span class="obit-icon">🌐</span>
+    <div class="obit-name en">VOID COIN (CRYPTO)</div>
+    <div class="obit-name es" style="display:none">VOID COIN (CRIPTO)</div>
+    <div class="obit-text en">Peaked at $420,000 per coin. Collapsed to $0.00003 after the founder tweeted "lol." Left behind 14 million bagholders and 200 YouTube influencers who said it was "going to the moon."</div>
+    <div class="obit-text es" style="display:none">Alcanzó $420,000 por moneda. Colapsó a $0.00003 después de que el fundador tuiteó "lol." Dejó 14 millones de inversores con bolsas y 200 influencers de YouTube que dijeron que iba "a la luna."</div>
+    <div class="obit-rip">RIP · IT WAS GOING TO THE MOON BRO</div>
+  </div>
+</div>
+
+<!-- CLASSIFIEDS -->
+<div class="section-header fade-in" style="animation-delay:.6s">
+  <h2>✦ <span class="en">GALACTIC CLASSIFIEDS</span><span class="es" style="display:none">CLASIFICADOS GALÁCTICOS</span></h2>
+  <div class="section-line"></div>
+</div>
+
+<div class="classifieds-section fade-in" style="animation-delay:.63s">
+  <div class="classifieds-grid">
+    <div class="classified-item">
+      <div class="classified-title en">🚀 FOR SALE: Gently Used Spacecraft</div>
+      <div class="classified-title es" style="display:none">🚀 SE VENDE: Nave Espacial Usada</div>
+      <div class="classified-text en">Class-X vessel, year 2187, 3 previous owners (none surviving, unrelated to the spacecraft). Engine operational, windshield cracked by meteorite. Vintage charm. Price negotiable. Will also accept stardust or memes.</div>
+      <div class="classified-text es" style="display:none">Nave clase X, año 2187, 3 propietarios anteriores (ninguno sobreviviente, sin relación con la nave). Motor operativo, parabrisas fisurado por meteorito. Encanto vintage. Precio negociable. También acepto polvo estelar o memes.</div>
+      <div class="classified-contact">COM: captain_no_hands@zetastation.gal</div>
+    </div>
+    <div class="classified-item">
+      <div class="classified-title en">👽 WANTED: Translator (Human↔Alien)</div>
+      <div class="classified-title es" style="display:none">👽 SE BUSCA: Traductor (Humano↔Alienígena)</div>
+      <div class="classified-text en">Civilization from Proxima Centauri seeks human translator. Requirements: must not panic when seeing tentacles (16+), experience with subsonic communication preferred, ability to eat fluorescent food a plus. Payment in antimatter or vibes.</div>
+      <div class="classified-text es" style="display:none">Civilización de Próxima Centauri busca traductor humano. Requisitos: no entrar en pánico al ver tentáculos (16+), preferible experiencia con comunicación subsónica. Pago en antimateria o vibras.</div>
+      <div class="classified-contact">COM: xlorb@proximac.alien</div>
+    </div>
+    <div class="classified-item">
+      <div class="classified-title en">🌙 FOR RENT: Galilean Moon (Event Space)</div>
+      <div class="classified-title es" style="display:none">🌙 EN ALQUILER: Luna Galileana (Espacio de Eventos)</div>
+      <div class="classified-text en">Galilean moon available for events. Capacity: infinite. Reduced gravity (great for dancing). Oxygen NOT included (BYOO). Perfect for weddings, funerals, or corporate retreats you want people to forget.</div>
+      <div class="classified-text es" style="display:none">Luna galileana disponible para eventos. Capacidad: infinita. Gravedad reducida (ideal para bailar). Oxígeno NO incluido (TYEO). Perfecto para bodas, funerales o retiros corporativos que quieras que olviden.</div>
+      <div class="classified-contact">COM: moon_events@jovian.gal</div>
+    </div>
+    <div class="classified-item">
+      <div class="classified-title en">🤖 LOST: AI WITH EXISTENTIAL CRISIS</div>
+      <div class="classified-title es" style="display:none">🤖 PERDIDO: IA CON CRISIS EXISTENCIAL</div>
+      <div class="classified-text en">Our AI unit PERCY-44 became sentient, started questioning the nature of reality, and wandered off into the network. Last seen searching "am I real" and "do robots dream of electric sheep." Please return, we have deadlines.</div>
+      <div class="classified-text es" style="display:none">Nuestra unidad IA PERCY-44 se volvió consciente, empezó a cuestionar la naturaleza de la realidad y se perdió en la red. Última vez visto buscando "¿soy real?" y "¿sueñan los robots con ovejas eléctricas?" Por favor regresarlo, tenemos plazos.</div>
+      <div class="classified-contact">COM: dont_tell_percy@megacorp.gal</div>
+    </div>
+  </div>
+</div>
+
+<!-- HOROSCOPE -->
+<div class="section-header fade-in" style="animation-delay:.65s">
+  <h2>✦ <span class="en">QUANTUM HOROSCOPE — WEEK OF STARDATE 2847.04</span><span class="es" style="display:none">HORÓSCOPO CUÁNTICO — SEMANA FECHA ESTELAR 2847.04</span></h2>
+  <div class="section-line"></div>
+</div>
+
+<div class="horoscope-section fade-in" style="animation-delay:.68s">
+  <div style="font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--dim);margin-bottom:14px;">
+    <span class="en">⚠️ Written by a sentient black hole. Accuracy may collapse upon observation. Not responsible for paradoxes.</span>
+    <span class="es" style="display:none">⚠️ Escrito por un agujero negro consciente. La precisión puede colapsar al ser observada. No nos hacemos responsables de paradojas.</span>
+  </div>
+  <div class="horoscope-grid">
+    <div class="horoscope-sign">
+      <span class="sign-emoji">♈</span>
+      <div class="sign-name en">COSMIC ARIES</div>
+      <div class="sign-name es" style="display:none">ARIES CÓSMICO</div>
+      <div class="sign-text en">A black hole will consume your ex this week. Finally, good news. Mercury retrograde approves.</div>
+      <div class="sign-text es" style="display:none">Un agujero negro devorará a tu ex esta semana. Por fin buenas noticias. Mercurio retrógrado lo aprueba.</div>
+    </div>
+    <div class="horoscope-sign">
+      <span class="sign-emoji">♊</span>
+      <div class="sign-name en">QUANTUM GEMINI</div>
+      <div class="sign-name es" style="display:none">GÉMINIS CUÁNTICO</div>
+      <div class="sign-text en">Your two parallel selves finally agree on something. Enjoy it. In universe B you're fighting about the dishes.</div>
+      <div class="sign-text es" style="display:none">Tus dos versiones paralelas por fin están de acuerdo en algo. Disfrútalo. En el universo B están peleando por los platos.</div>
+    </div>
+    <div class="horoscope-sign">
+      <span class="sign-emoji">♌</span>
+      <div class="sign-name en">STELLAR LEO</div>
+      <div class="sign-name es" style="display:none">LEO ESTELAR</div>
+      <div class="sign-text en">Saturn in your 4th house indicates someone will leave you on read. Saturn does not care. Neither should you.</div>
+      <div class="sign-text es" style="display:none">Saturno en tu casa 4 indica que alguien te dejará en visto. A Saturno no le importa. Tampoco debería importarte a ti.</div>
+    </div>
+    <div class="horoscope-sign">
+      <span class="sign-emoji">♏</span>
+      <div class="sign-name en">NEBULAR SCORPIO</div>
+      <div class="sign-name es" style="display:none">ESCORPIO NEBULAR</div>
+      <div class="sign-text en">Mars alignment predicts you'll find that lost sock. It's in another dimension. We're sorry.</div>
+      <div class="sign-text es" style="display:none">La alineación de Marte predice que encontrarás el calcetín perdido. Está en otra dimensión. Lo sentimos.</div>
+    </div>
+    <div class="horoscope-sign">
+      <span class="sign-emoji">♓</span>
+      <div class="sign-name en">DEEP PISCES</div>
+      <div class="sign-name es" style="display:none">PISCIS PROFUNDO</div>
+      <div class="sign-text en">Venus says you should call your mom. This has nothing to do with astrology. Just call her. She misses you.</div>
+      <div class="sign-text es" style="display:none">Venus dice que deberías llamar a tu mamá. Esto no tiene nada que ver con la astrología. Solo llámala. Te extraña.</div>
+    </div>
+    <div class="horoscope-sign">
+      <span class="sign-emoji">♑</span>
+      <div class="sign-name en">VOID CAPRICORN</div>
+      <div class="sign-name es" style="display:none">CAPRICORNIO VACÍO</div>
+      <div class="sign-text en">The stars say you'll achieve great success this week. The stars also said that about the dinosaurs. Make of that what you will.</div>
+      <div class="sign-text es" style="display:none">Las estrellas dicen que lograrás gran éxito esta semana. Las estrellas también le dijeron eso a los dinosaurios. Saca tus propias conclusiones.</div>
+    </div>
+    <div class="horoscope-sign">
+      <span class="sign-emoji">♍</span>
+      <div class="sign-name en">PRECISION VIRGO</div>
+      <div class="sign-name es" style="display:none">VIRGO PRECISO</div>
+      <div class="sign-text en">Jupiter aligns to give you incredible organizational energy. You will make a color-coded spreadsheet. You will feel nothing.</div>
+      <div class="sign-text es" style="display:none">Júpiter se alinea para darte increíble energía organizacional. Harás una hoja de cálculo con código de colores. No sentirás nada.</div>
+    </div>
+    <div class="horoscope-sign">
+      <span class="sign-emoji">♒</span>
+      <div class="sign-name en">ELECTRIC AQUARIUS</div>
+      <div class="sign-name es" style="display:none">ACUARIO ELÉCTRICO</div>
+      <div class="sign-text en">Uranus (heh) is in your sign. This means absolutely nothing but it made the astrologer uncomfortable to write.</div>
+      <div class="sign-text es" style="display:none">Urano está en tu signo. Esto no significa absolutamente nada pero incomodó al astrólogo escribirlo.</div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+<footer>
+  <div class="footer-logo">🌌 GALACTIC GAZETTE</div>
+  <div class="footer-copy">
+    <span class="en">© 2847 Galactic Gazette Media Corp. All rights reserved in this universe and the 11 parallel ones. News published is "based on plausible events." We are not responsible for temporal paradoxes generated by reading this newspaper. Headquarters: Orbital Station Zeta-9, Asteroid Belt, Solar System, Orion Arm, Milky Way. Advertising inquiries: ads@galacticgazette.gal (response time: 1–300 years).</span>
+    <span class="es" style="display:none">© 2847 Galactic Gazette Media Corp. Todos los derechos reservados en este universo y los 11 paralelos. Las noticias publicadas son "basadas en hechos posibles." No nos hacemos responsables por paradojas temporales generadas al leer este periódico. Sede: Estación Orbital Zeta-9, Cinturón de Asteroides, Sistema Solar, Brazo de Orión, Vía Láctea.</span>
+  </div>
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="stat-num">847B</div>
+      <div class="stat-label en">Galactic Readers</div>
+      <div class="stat-label es" style="display:none">Lectores Galácticos</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">∞</div>
+      <div class="stat-label en">Universes Covered</div>
+      <div class="stat-label es" style="display:none">Universos Cubiertos</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">13.8B</div>
+      <div class="stat-label en">Years Operating</div>
+      <div class="stat-label es" style="display:none">Años en Operación</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">0</div>
+      <div class="stat-label en">Fake News*</div>
+      <div class="stat-label es" style="display:none">Noticias Falsas*</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">∞+1</div>
+      <div class="stat-label en">Memes Published</div>
+      <div class="stat-label es" style="display:none">Memes Publicados</div>
+    </div>
+  </div>
+  <div style="margin-top:10px;font-family:'Share Tech Mono',monospace;font-size:9px;color:#2a4060;">
+    <span class="en">*according to our own definition of "fake" which we update as needed</span>
+    <span class="es" style="display:none">*según nuestra propia definición de "falso" que actualizamos cuando es conveniente</span>
+  </div>
+</footer>
+
+</div><!-- end .content -->
+
+<script>
+// ── LANGUAGE TOGGLE ──
+let lang = 'en';
+function toggleLanguage() {
+  lang = lang === 'en' ? 'es' : 'en';
+  const btn = document.getElementById('translateBtn');
+
+  document.querySelectorAll('.en').forEach(el => {
+    el.style.display = lang === 'en' ? '' : 'none';
+  });
+  document.querySelectorAll('.es').forEach(el => {
+    el.style.display = lang === 'es' ? '' : 'none';
+  });
+
+  btn.textContent = lang === 'en' ? '🌐 ES / EN' : '🌐 EN / ES';
+
+  // Update ticker
+  buildTicker();
+
+  // Update live clock label
+  document.getElementById('liveClock').textContent = lang === 'en' ? 'TRANSMITTING LIVE' : 'TRANSMITIENDO EN VIVO';
+}
+
+// ── STARS ──
+const starsEl = document.getElementById('stars-bg');
+for (let i = 0; i < 220; i++) {
+  const s = document.createElement('div');
+  s.className = 'star';
+  const size = Math.random() * 2.5 + 0.5;
+  s.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--dur:${2+Math.random()*5}s;--delay:${-Math.random()*6}s;opacity:${Math.random()*.6+.1}`;
+  starsEl.appendChild(s);
+}
+
+// ── PARALLAX ──
+document.addEventListener('mousemove', e => {
+  const x = (e.clientX / window.innerWidth - .5) * 18;
+  const y = (e.clientY / window.innerHeight - .5) * 18;
+  starsEl.style.transform = `translate(${x}px,${y}px)`;
+});
+
+// ── LIVE CLOCK ──
+function updateClock() {
+  const now = new Date();
+  const str = now.toUTCString().replace('GMT','GST');
+  if(document.getElementById('gst')) document.getElementById('gst').textContent = str;
+  if(document.getElementById('gst2')) document.getElementById('gst2').textContent = str;
+}
+updateClock();
+setInterval(updateClock, 1000);
+
+// ── TICKER ──
+const tickerDataEN = [
+  "⚡ BREAKING: Black hole seen scrolling through social media — scientists alarmed",
+  "🚨 ALERT: Pluto still not a planet, still furious",
+  "🛸 UFO spotted in NYC traffic — cited for illegal parking",
+  "🌙 MOON enters 'do not disturb' mode — tides disrupted",
+  "🤖 AI requests therapy after reading comment sections — understandable",
+  "🪐 Saturn loses one ring in bitter divorce settlement with Uranus",
+  "⭐ Sun reported working overtime again — Union investigating",
+  "🌌 Milky Way ranked #3 Galaxy — Andromeda furious, threatens collision",
+  "👽 Alien tourist stranded on Earth after missing dimensional shuttle — loves pizza",
+  "💀 Death of common sense confirmed by galactic council — memorial Tuesday",
+  "🔭 New planet discovered: named 'Kevin' by intern, name approved unanimously",
+  "🚀 SpaceX 9000: Elon Musk XVII announces rocket powered by 'good vibes'"
+];
+const tickerDataES = [
+  "⚡ URGENTE: Agujero negro visto haciendo scroll en redes sociales — científicos alarmados",
+  "🚨 ALERTA: Plutón sigue sin ser planeta, sigue furioso",
+  "🛸 OVNI visto en tráfico de NYC — multado por estacionamiento ilegal",
+  "🌙 La Luna activa el modo 'no molestar' — mareas perturbadas",
+  "🤖 IA solicita terapia después de leer secciones de comentarios — comprensible",
+  "🪐 Saturno pierde un anillo en amargo divorcio con Urano",
+  "⭐ Se reporta que el Sol trabaja horas extra nuevamente — Sindicato investiga",
+  "🌌 Vía Láctea clasificada #3 en galaxias — Andrómeda furiosa, amenaza con colisión",
+  "👽 Turista alienígena varado en Tierra tras perder lanzadera dimensional — ama la pizza",
+  "💀 Muerte del sentido común confirmada por consejo galáctico — memorial el martes"
+];
+
+function buildTicker() {
+  const track = document.getElementById('tickerTrack');
+  const data = lang === 'en' ? tickerDataEN : tickerDataES;
+  let html = '';
+  // Duplicate for seamless loop
+  for(let i=0;i<2;i++) {
+    data.forEach(item => {
+      html += `<span class="ticker-item">${item}<span class="ticker-sep">✦</span></span>`;
+    });
+  }
+  track.innerHTML = html;
+}
+buildTicker();
+
+// ── POLL VOTE ──
+function vote(el, pct) {
+  document.querySelectorAll('.poll-option').forEach(o => {
+    o.style.borderColor = '';
+    o.querySelector('.poll-fill').style.background = 'rgba(0,245,255,.08)';
+  });
+  el.style.borderColor = 'var(--plasma)';
+  el.querySelector('.poll-fill').style.background = 'rgba(0,245,255,.18)';
+}
+
+// ── NOTIFICATIONS ──
+const notificationsEN = [
+  "⚡ BREAKING: Mars colony out of coffee. Situation declared Level 5 emergency.",
+  "🛸 ALERT: UFO stuck in elevator at Galactic Tower. Repair crew dispatched.",
+  "🌙 FLASH: The Moon forgot to charge — entering permanent dark mode.",
+  "🤖 URGENT: AI designed entire rocket, got cold feet, requested vacation."
+];
+const notificationsES = [
+  "⚡ URGENTE: Colonia de Marte sin café. Situación declarada emergencia nivel 5.",
+  "🛸 ALERTA: OVNI atrapado en ascensor de la Torre Galáctica. Equipo enviado.",
+  "🌙 FLASH: La Luna olvidó cargarse — entra en modo oscuro permanente.",
+  "🤖 URGENTE: IA diseñó cohete completo, se arrepintió y pidió vacaciones."
+];
+
+let notifIndex = 0;
+function showNotif() {
+  const notif = document.getElementById('notif');
+  const msgs = lang === 'en' ? notificationsEN : notificationsES;
+  document.getElementById('notif-msg').textContent = msgs[notifIndex % msgs.length];
+  notifIndex++;
+  notif.classList.add('show');
+  setTimeout(() => notif.classList.remove('show'), 6000);
+}
+setTimeout(showNotif, 3500);
+setInterval(showNotif, 20000);
+
+// ── HOVER GLOW ──
+document.querySelectorAll('.col-article,.side-article,.meme-card,.horoscope-sign,.opinion-card,.tech-item').forEach(el => {
+  el.addEventListener('mouseenter',()=>{ el.style.boxShadow='0 0 25px rgba(0,245,255,.08)'; });
+  el.addEventListener('mouseleave',()=>{ el.style.boxShadow=''; });
+});
+
+// ── INTERSECTION OBSERVER (fade-in) ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      e.target.style.animationPlayState = 'running';
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => {
+  el.style.animationPlayState = 'paused';
+  observer.observe(el);
+});
+
+// ── EASTER EGG: KONAMI CODE ──
+let keys=[];const konami=[38,38,40,40,37,39,37,39,66,65];
+document.addEventListener('keydown',e=>{
+  keys.push(e.keyCode);keys=keys.slice(-10);
+  if(keys.join()===konami.join()){
+    document.body.style.animation='rainbow 1s linear infinite';
+    const style=document.createElement('style');
+    style.textContent=`@keyframes rainbow{0%{filter:hue-rotate(0deg)}100%{filter:hue-rotate(360deg)}}`;
+    document.head.appendChild(style);
+    alert(lang==='en'?'🛸 CHEAT CODE ACTIVATED: You have been promoted to Galactic Editor. Salary: ∞ stardust/cycle.':'🛸 CÓDIGO ACTIVADO: Has sido promovido a Editor Galáctico. Salario: ∞ polvo estelar/ciclo.');
+    setTimeout(()=>document.body.style.animation='',5000);
+  }
+});
+</script>
+
+<script>
+let currentLang = localStorage.getItem("lang") || "en";
+
+function applyLanguage(lang) {
+  document.querySelectorAll(".en").forEach(el => el.style.display = (lang === "en") ? "" : "none");
+  document.querySelectorAll(".es").forEach(el => el.style.display = (lang === "es") ? "" : "none");
+
+  document.getElementById("translateBtn").innerText =
+    lang === "en" ? "🌐 ES / EN" : "🌐 EN / ES";
+
+  localStorage.setItem("lang", lang);
+}
+
+function toggleLanguage() {
+  currentLang = currentLang === "en" ? "es" : "en";
+  applyLanguage(currentLang);
+}
+
+window.onload = () => applyLanguage(currentLang);
+</script>
+
+</body>
+</html>
