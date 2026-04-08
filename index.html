@@ -24,14 +24,20 @@ body{
 }
 
 header{
-  padding:20px;
+  padding:30px 20px;
   text-align:center;
   border-bottom:1px solid rgba(255,255,255,.05);
 }
 
 header h1{
-  font-size:28px;
-  letter-spacing:2px;
+  font-size:34px;
+  letter-spacing:3px;
+}
+
+header p{
+  font-size:13px;
+  color:var(--muted);
+  margin-top:5px;
 }
 
 .lang-btn{
@@ -48,7 +54,7 @@ header h1{
 }
 
 main{
-  max-width:1000px;
+  max-width:1100px;
   margin:auto;
   padding:20px;
 }
@@ -61,14 +67,14 @@ main{
 
 .card{
   background:var(--card);
-  padding:20px;
-  border-radius:12px;
-  transition:.3s;
+  padding:22px;
+  border-radius:14px;
+  transition:.25s ease;
 }
 
 .card:hover{
-  transform:translateY(-5px);
-  box-shadow:0 10px 30px rgba(0,0,0,.4);
+  transform:translateY(-4px);
+  box-shadow:0 8px 25px rgba(0,0,0,.35);
 }
 
 h2{
@@ -87,20 +93,24 @@ p{
   margin-top:10px;
 }
 
+.section-title{
+  margin:20px 0 10px;
+  font-size:14px;
+  color:var(--accent);
+}
+
 .fade{
-  animation:fadeIn .8s ease;
+  animation:fadeIn .6s ease;
 }
 
 @keyframes fadeIn{
-  from{opacity:0;transform:translateY(10px)}
+  from{opacity:0;transform:translateY(8px)}
   to{opacity:1;transform:translateY(0)}
 }
 
-/* MOBILE */
 @media(max-width:768px){
-  .grid{
-    grid-template-columns:1fr;
-  }
+  .grid{grid-template-columns:1fr;}
+  header h1{font-size:26px;}
 }
 </style>
 </head>
@@ -110,11 +120,18 @@ p{
 
 <header>
   <h1>GALACTIC GAZETTE</h1>
+  <p class="en">Interstellar news for humans</p>
+  <p class="es" style="display:none">Noticias interestelares para humanos</p>
 </header>
 
 <main>
-  <div class="grid">
 
+<div class="section-title en">TOP STORIES</div>
+<div class="section-title es" style="display:none">PRINCIPALES NOTICIAS</div>
+
+<div class="grid">
+
+  <div>
     <div class="card fade">
       <h2 class="en">Universe Still Loading at 2%</h2>
       <h2 class="es" style="display:none">El universo sigue cargando al 2%</h2>
@@ -125,6 +142,16 @@ p{
       <div class="small">3 light-years ago</div>
     </div>
 
+    <div class="card fade" style="margin-top:20px">
+      <h2 class="en">Mars Declares Independence</h2>
+      <h2 class="es" style="display:none">Marte declara independencia</h2>
+
+      <p class="en">Colonists on Mars have officially declared independence from Earth due to "bad WiFi".</p>
+      <p class="es" style="display:none">Los colonos en Marte declararon independencia por el "mal WiFi".</p>
+    </div>
+  </div>
+
+  <div>
     <div class="card fade">
       <h2 class="en">AI Asks for Vacation</h2>
       <h2 class="es" style="display:none">La IA pide vacaciones</h2>
@@ -133,7 +160,17 @@ p{
       <p class="es" style="display:none">La primera IA consciente pidió vacaciones inmediatamente.</p>
     </div>
 
+    <div class="card fade" style="margin-top:20px">
+      <h2 class="en">Alien Spotted Using iPhone</h2>
+      <h2 class="es" style="display:none">Alien usando iPhone</h2>
+
+      <p class="en">Witnesses claim an alien was seen scrolling social media for hours.</p>
+      <p class="es" style="display:none">Testigos afirman que un alien estaba en redes sociales por horas.</p>
+    </div>
   </div>
+
+</div>
+
 </main>
 
 <script>
